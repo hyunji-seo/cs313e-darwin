@@ -21,86 +21,96 @@ from Darwin import darwin_read, darwin_eval, darwin_print, darwin_solve
 
 class TestDarwin (TestCase) :
     # ----
-    # read
+    # grid
     # ----
 
-    def test_read (self) :
+    def test_grid (self) :
         r    = StringIO("1 10\n100 200\n201 210\n900 1000\n")
         i, j = collatz_read(r)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
 
-    # ----
-    # eval
-    # ----
+    # -------
+    # species
+    # -------
 
-    def test_eval_1 (self) :
+    def test_species_1 (self) :
         v = collatz_eval(1, 10)
         self.assertEqual(v, 20)
-
-    def test_eval_2 (self) :
-        v = collatz_eval(100, 200)
-        self.assertEqual(v, 125)
-
-    def test_eval_3 (self) :
-        v = collatz_eval(201, 210)
-        self.assertEqual(v, 89)
-
-    def test_eval_4 (self) :
-        v = collatz_eval(900, 1000)
-        self.assertEqual(v, 174)
         
-    def test_eval_5 (self) :
-        v = collatz_eval(1, 1)
-        self.assertEqual(v, 1)
-        
-    def test_eval_6 (self) :
-        v = collatz_eval(1, 9999)
-        self.assertEqual(v, 262)
+    # --------
+    # creature
+    # --------
 
-    def test_eval_7 (self) :
-        v = collatz_eval(99999,1 )
-        self.assertEqual(v, 351)
-
-    def test_eval_8 (self) :
-        v = collatz_eval(1, 99999)
-        self.assertEqual(v, 351)
-
-    def test_eval_9 (self) :
-        v = collatz_eval(999999, 999999)
-        self.assertEqual(v, 259)
-
-    def test_eval_10 (self) :
-        v = collatz_eval(81234, 700)
-        self.assertEqual(v, 351)
-        
-    def test_eval_11 (self) :
-        v = collatz_eval(99999, 99999)
-        self.assertEqual(v, 227)
-        
-    def test_eval_12 (self) :
-        v = collatz_eval(250, 250 )
-        self.assertEqual(v, 110 )
-
-    # -----
-    # print
-    # -----
-
-    def test_print (self) :
+    def test_creature_1 (self) :
         w = StringIO()
         collatz_print(w, 1, 10, 20)
         self.assertEqual(w.getvalue(), "1 10 20\n")
 
-    # -----
-    # solve
-    # -----
+    # ----
+    # turn
+    # ----
 
-    def test_solve (self) :
+    def test_turn_1 (self) :
         r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n")
-
+        
+    # ---
+    # hop
+    # ---
+    
+    def test_hop_1 (self) :
+        w = StringIO()
+        collatz_print(w, 1, 10, 20)
+        self.assertEqual(w.getvalue(), "1 10 20\n")
+    
+    # ---------
+    # direction
+    # --------
+    
+    def test_direction_1 (self) :
+        w = StringIO()
+        collatz_print(w, 1, 10, 20)
+        self.assertEqual(w.getvalue(), "1 10 20\n")
+    
+    # ------
+    # infect
+    # ------
+    
+    def test_infect_1 (self) :
+        w = StringIO()
+        collatz_print(w, 1, 10, 20)
+        self.assertEqual(w.getvalue(), "1 10 20\n")
+    
+    # --------
+    # if_empty
+    # --------
+    
+    def test_if_empty_1 (self) :
+        w = StringIO()
+        collatz_print(w, 1, 10, 20)
+        self.assertEqual(w.getvalue(), "1 10 20\n")
+        
+    # -------
+    # if_wall
+    # -------
+    
+    def test_if_wall_1 (self) :
+        w = StringIO()
+        collatz_print(w, 1, 10, 20)
+        self.assertEqual(w.getvalue(), "1 10 20\n")
+    
+    # --------
+    # if_enemy
+    # --------
+    
+    def test_if_enemy_1 (self) :
+        w = StringIO()
+        collatz_print(w, 1, 10, 20)
+        self.assertEqual(w.getvalue(), "1 10 20\n")
+        
 # ----
 # main
 # ----
