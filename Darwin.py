@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+
+# ---------------------------
+# projects/collatz/Collatz.py
+# Copyright (C) 2014
+# Glenn P. Downing
+# ---------------------------
+
+# ------------
+# collatz_read
+# ------------
+
+
+
+def collatz_read (r) :
+    """
+    read two ints
+    r a reader
+    return a list of two ints, representing the beginning and end of a range, [i, j]
+    """
+    s = r.readline()
+    if s == "" :
+        return []
+    a = s.split()
+    return [int(v) for v in a]
+
+# ------------
+# collatz_eval
+# ------------
+
+
+
+def collatz_eval (i, j) :
+    """
+    i the beginning of the range, inclusive
+    j the end       of the range, inclusive
+    return the max cycle length of the range [i, j]
+    """
+    cycle_length = {1:1} 
+    assert i > 0  
+    assert j > 0    
+    if i > j:  # To ensure i is the start and j is the end of the range
+        i, j = j, i
+    if i < (j//2) + 1: 
+        m = (j//2) + 1
+    else:
+        m = i
+    for c in range(m,j+1):
+      temp = c
+      counter = 1      
+      while c > 1:
+        if c % 2 == 1:
+            counter += 2
+            c = c + (c//2) + 1 
+        else:
+            counter += 1
+            c = (c // 2)
+      cycle_length[temp] = counter
+      v = max(cycle_length.values())
+    assert v > 0
+    return max(cycle_length.values())
+
+# -------------
+# collatz_print
+# -------------
+
+def collatz_print (w, i, j, v) :
+    """
+    print three ints
+    w a writer
+    i the beginning of the range, inclusive
+    j the end       of the range, inclusive
+    v the max cycle length
+    """
+    w.write(str(i) + " " + str(j) + " " + str(v) + "\n")
+
+# -------------
+# collatz_solve
+# -------------
+
+def collatz_solve (r, w) :
+    """
+    r a reader
+    w a writer
+    """
+    while True :
+        a = collatz_read(r)
+        if not a :
+            return
+        i, j = a
+        v = collatz_eval(i, j)
+        collatz_print(w, i, j, v)
