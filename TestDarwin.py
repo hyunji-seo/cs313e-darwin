@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # -------------------------------
-# projects/collatz/TestCollatz.py
+# projects/darwin/TestDarwin.py
 # Copyright (C) 2014
 # Glenn P. Downing
 # -------------------------------
@@ -13,13 +13,13 @@
 from io       import StringIO
 from unittest import main, TestCase
 
-from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve
+from Darwin import darwin_read, darwin_eval, darwin_print, darwin_solve
 
 # -----------
-# TestCollatz
+# TestDarwin
 # -----------
 
-class TestCollatz (TestCase) :
+class TestDarwin (TestCase) :
     # ----
     # read
     # ----
