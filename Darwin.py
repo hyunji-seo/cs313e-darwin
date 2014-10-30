@@ -18,7 +18,7 @@ class Darwin:
 		#print (self.grid)
 	
 	def print_board(self, grid):
-		print(" ".join("{0:2d}".format(i) if i else " " for i in range(len(grid[0])+1)))
+		print("   " + " ".join("{0:2d}".format(i) for i in range(len(grid[0]))))
 		for i, row in enumerate(grid, 0):
 			print("{0:2d}".format(i),end=" ")
 			print("".join(" {0} ".format(col if col != None else ".") for col in row))
@@ -76,7 +76,7 @@ class Creature:
 
 s = Darwin(12, 34)
 
-s.print_board([["."] * 14 for x in range(6)])
+s.print_board([["."] * 15 for x in range(14)])
 #s.place_creatures()
 
 			
