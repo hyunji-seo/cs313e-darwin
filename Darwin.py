@@ -6,6 +6,24 @@
 # Glenn P. Downing
 # ---------------------------
 
+# code for building a grid
+
+class Darwin:
+	def __init__(self, x, y):
+		assert y != 0
+		assert x != 0
+		self.row = x
+		self.col = y	
+		self.grid  = [["."] * self.col for x in range(self.row)]
+		#print (self.grid)
+	
+	def print_board(self, grid):
+		print(" ".join("{0:2d}".format(i) if i else " " for i in range(len(grid[0])+1)))
+		for i, row in enumerate(grid, 0):
+			print("{0:2d}".format(i),end=" ")
+			print("".join(" {0} ".format(col if col != None else ".") for col in row))
+			
+
 # ------------
 # collatz_read
 # ------------
