@@ -22,6 +22,17 @@ class Darwin:
 		for i, row in enumerate(grid, 0):
 			print("{0:2d}".format(i),end=" ")
 			print("".join(" {0} ".format(col if col != None else ".") for col in row))
+			
+	#def place_creatures(self, creat):
+	def random_row(self, grid):
+		ship_row = self.grid	
+		return (randint(0, len(grid) - 1))
+		
+			
+
+	def random_col(self, grid):
+		ship_col = self.grid
+		return (randint(0, len(grid[0]) - 1))
 
 	def start_turn(self):
 		pass
@@ -74,10 +85,24 @@ class Creature:
 
 
 
-s = Darwin(12, 34)
+s = Darwin(12, 12)
 
-s.print_board([["."] * 15 for x in range(14)])
+s.print_board(s.grid)
 #s.place_creatures()
+
+
+ship_row = s.random_row(s.grid)
+ship_col = s.random_col(s.grid)
+
+print (ship_row)
+print (ship_col)
+
+s.grid[ship_row][ship_col] = "r"
+s.print_board(s.grid)
+s.grid[ship_row][ship_col] = "t"
+
+#s.print_board(s.grid[ship_row][ship_col])
+s.print_board(s.grid)
 
 			
 
