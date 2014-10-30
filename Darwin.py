@@ -22,6 +22,63 @@ class Darwin:
 		for i, row in enumerate(grid, 0):
 			print("{0:2d}".format(i),end=" ")
 			print("".join(" {0} ".format(col if col != None else ".") for col in row))
+
+	def start_turn(self):
+		pass
+
+	def action_hop(self):
+		pass
+
+	def action_left(self):
+		pass
+
+	def action_infect(self):
+		pass
+
+	def control_if_empty(self):
+		pass
+
+	def control_if_wall(self):
+		pass
+
+	def cotrol_if_random(self):
+		pass
+
+	def if_enemy(self):
+		pass
+
+	def go(self):
+		pass
+
+
+class Creature:
+	def __init__(self):
+		pass
+
+	def add_instruction(self):
+		pass
+
+	class Species:
+		def __init__(self):
+			pass
+
+		def direction(self):
+			pass
+
+		def program_counter(self):
+			pass
+
+		def best(self):
+			pass
+
+
+
+
+s = Darwin(12, 34)
+
+s.print_board([["."] * 14 for x in range(6)])
+#s.place_creatures()
+
 			
 
 # ------------
