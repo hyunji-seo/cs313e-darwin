@@ -29,6 +29,10 @@ class TestDarwin (TestCase) :
         i, j = collatz_read(r)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
+        
+    # --------------
+    # place_creature
+    # --------------
 
     # -------
     # species
