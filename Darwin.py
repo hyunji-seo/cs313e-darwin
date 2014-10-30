@@ -61,26 +61,21 @@ class Darwin:
 	def go(self):
 		pass
 
-
-class Creature:
+class Species(self):
 	def __init__(self):
-		pass
+		self.rover = rover
+		self.food = food
+		self.trap = trap
+		self.best = best
 
 	def add_instruction(self):
 		pass
 
-	class Species:
-		def __init__(self):
-			pass
+class Creature(self):
+	def __init__(self):
+	self.direction = direction
+	self.program_counter = program_counter
 
-		def direction(self):
-			pass
-
-		def program_counter(self):
-			pass
-
-		def best(self):
-			pass
 
 
 
