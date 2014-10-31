@@ -6,6 +6,8 @@
 # Glenn P. Downing
 # ---------------------------
 
+from random import randint, sample, seed
+
 # code for building a grid
 
 class Darwin:
@@ -18,16 +20,68 @@ class Darwin:
 		#print (self.grid)
 	
 	def print_board(self, grid):
+		print ("Turn = ")
 		print("   " + " ".join("{0:2d}".format(i) for i in range(len(grid[0]))))
 		for i, row in enumerate(grid, 0):
 			print("{0:2d}".format(i),end=" ")
 			print("".join(" {0} ".format(col if col != None else ".") for col in row))
-			
-	#def place_creatures(self, creat):
-	def random_row(self, grid):
-		ship_row = self.grid	
-		return (randint(0, len(grid) - 1))
+
+	def add_creature(self, creature):
+		self.grid[3][3] = "r"
+		return self.grid
+
+	def __repr__(self):
+        	return "(%d, %d)" % (self.row, self.column)
 		
+
+class Species:
+	def __init__(self):
+		self.rover = []
+		self.food = []
+		self.hooper = []
+		self.trap = []
+		self.best = []
+
+	def add_instruction(self):
+		self.rover = ["if_enemy", "if_empty", "if_random", "left", "go", "right", "go", "hop", "go", "infect", "go"]
+		return self.rover		
+
+	def __repr__(self):
+        	return "(%s)" % (self.rover)
+
+class Creature:
+	def __init__(self, species, x_cor, y_cor):
+		self.direction = ["north", "east", "south", "west"]
+		self.program_counter = 0
+		self.species = species
+		self.x_cor = x_cor
+		self.y_cor = y_cor
+
+	
+	
+
+	def __repr__(self):
+        	return "(%s, %s, %s, %d, %d)" % (self.direction, self.program_counter, self.species, self.x_cor, self.y_cor)
+
+
+
+s = Darwin(8, 8)
+s.print_board(s.grid)
+rover = Species()
+r1 = Creature(rover, 3, 3)
+s.add_creature(r1)
+s.print_board(s.grid)
+#s.start_game()
+
+
+
+row = 0
+col = 0	
+for i in range(9):
+	col += 1
+	s.grid[row][col] = "r"
+	s.print_board(s.grid)
+	s.grid[row][col] = "."
 			
 
 	def random_col(self, grid):
@@ -75,9 +129,6 @@ class Creature(self):
 	def __init__(self):
 	self.direction = direction
 	self.program_counter = program_counter
-
-
-
 
 
 s = Darwin(12, 12)
