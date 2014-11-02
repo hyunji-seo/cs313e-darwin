@@ -103,6 +103,27 @@ Rover,  facing north, at (5, 4)
 Trap,   facing west,  at (6, 8)
 Simulate 5 moves.
 Print every grid.
+=================================
+turn = 6
+s = Darwin(7, 9)
+
+rover = Species()
+food = Species()
+hopper = Species()
+
+
+t1 = Creature(trap, 0, 0, "t")
+h1 = Creature(hopper, 3, 2, "h")
+r1 = Creature(rover, 5, 4, "r")
+t2 = Creature(trap, 6, 8, "t")
+
+s.add_creature(t1)
+s.add_creature(h1)
+s.add_creature(r1)
+s.add_creature(t2)
+
+
+s.print_board(s.grid, turn)
 """
 
 # ------------

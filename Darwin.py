@@ -17,10 +17,6 @@ class Darwin:
 			for i, row in enumerate(grid, 0):
 				print("{0:2d}".format(i),end=" ")
 				print("".join(" {0} ".format(col if col != None else ".") for col in row))
-#			while (self.col + 1) <= turn:
-#				grid[self.row][(self.col)+1] = "h"
-#				print_board(self.grid)
-#				grid[self.row][self.col] = "."
 			print()
 
 	def add_creature(self, creature):
@@ -34,8 +30,6 @@ class Darwin:
 		# same or different species
 
 
-
-
 	def __repr__(self):
 		return "(%d)" % (self.row)
 
@@ -43,23 +37,37 @@ class Darwin:
 
 class Species:
 	def __init__(self):
-		self.rover = []
 		self.food = []
 		self.hopper = []
+		self.rover = []
 		self.trap = []
 		self.best = []
 
 	def add_instruction(self):
-		self.hopper = ["if_enemy", "if_empty", "if_random", "left", "go", "right", "go", "hop", "go", "infect", "go"]
+		self.food = ["left", "go"]
+		self.hopper = ["hop", "go"]
+		self.rover = ["if_enemy", "if_empty", "if_random", "left", "go", "right", "go", "hop", "go", "infect", "go"]
+		self.trap = ["if_enemy", "left", "go", "infect", "go"]
+#		self.best = ["infect"]
 		return self.hopper
 
 	def hop(self):
-		if str(creature.c_id) == "h":
-			y_cor += 1
-			Darwin.grid[x_cor][y_cor] = "."
-			Darwin.grid[creature.x_cor][creature.y_cor] = str(creature.c_id)
-			Darwin.grid[x_cor][y_cor] = "h"
-			return Darwin.grid
+#		if str(creature.c_id) == "h":
+		Darwin.grid[creature.x_cor][creature.y_cor] = "."
+		creature.y_cor += 1
+		Darwin.grid[creature.x_cor][creature.y_cor] = "h"
+#			Darwin.grid[creature.x_cor][creature.y_cor] = str(creature.c_id)
+		return Darwin.grid
+
+#	def left(self):
+#	def right(self):
+#	def infect(self):
+
+#	if_empty(self):
+#	if_wall(self):
+#	if_random(self):
+#	if_enemy(self):
+#	go(self):
 
 	def __repr__(Darwin):
 		return "(%s)" % (self.hopper)
@@ -77,34 +85,24 @@ class Creature:
 	def __repr__(self):
 		return "(%s, %s, %d, %d)" % (self.program_counter, self.species, self.x_cor, self.y_cor)
 
+#	def food(self):
 	def hopper(self):
 	#	self.grid[x_cor][y_cor] = str(c_id)
-		return hopper.hop
+		return Species.hop
+	#	print(Darwin.print_board())
 
-		print(Darwin.print_board())
+#	def rover(self):
+#		row = 0
+#		col = 0	
+#		for i in range(9):
+#			col += 1
+#			s.grid[row][col] = "r"
+#			s.print_board(s.grid)
+#			s.grid[row][col] = "."
+#		return s.grid
 
+#	def best(self):
 
-'''
-	def food(self):
-		row = 0
-		col = 0	
-		for i in range(9):
-			col += 1
-			s.grid[row][col] = "r"
-			s.print_board(s.grid)
-			s.grid[row][col] = "."
-		return s.grid
-
-	def rover(self):
-		row = 0
-		col = 0	
-		for i in range(9):
-			col += 1
-			s.grid[row][col] = "r"
-			s.print_board(s.grid)
-			s.grid[row][col] = "."
-		return s.grid
-'''
 #s.start_game()
 
 '''
