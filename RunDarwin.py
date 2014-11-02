@@ -1,17 +1,6 @@
-#!/usr/bin/env python3
-
-# -----------------------------
-# projects/collatz/RunDarwin.py
-# Copyright (C) 2014
-# Glenn P. Downing
-# -----------------------------
-
-# -------
-# imports
-# -------
-
 from random import seed
 import sys
+from Darwin import Darwin, Species, Creature
 
 # ----
 # food
@@ -77,6 +66,29 @@ Food,   facing north, at (7, 7)
 Simulate 5 moves.
 Print every grid.
 """
+turn = 6
+s = Darwin(8, 8)
+
+rover = Species()
+food = Species()
+hopper = Species()
+
+
+h1 = Creature(hopper, 3, 3, "h")
+h2 = Creature(hopper, 3, 4, "h")
+h3 = Creature(hopper, 4, 3, "h")
+h4 = Creature(hopper, 4, 4, "h")
+f1 = Creature(food, 0, 0, "f")
+f2 = Creature(food, 7, 7, "f")
+
+s.add_creature(f1)
+s.add_creature(h1)
+s.add_creature(h2)
+s.add_creature(h3)
+s.add_creature(h4)
+s.add_creature(f2)
+
+s.print_board(s.grid, turn)
 
 # ----------
 # darwin 7x9
