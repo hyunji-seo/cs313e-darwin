@@ -17,10 +17,10 @@ class Darwin:
 			for i, row in enumerate(grid, 0):
 				print("{0:2d}".format(i),end=" ")
 				print("".join(" {0} ".format(col if col != None else ".") for col in row))
-			while (self.col + 1) <= turn:
-				grid[self.row][(self.col)+1] = "h"
-				print_board(self.grid)
-				grid[self.row][self.col] = "."
+#			while (self.col + 1) <= turn:
+#				grid[self.row][(self.col)+1] = "h"
+#				print_board(self.grid)
+#				grid[self.row][self.col] = "."
 			print()
 
 	def add_creature(self, creature):
@@ -37,7 +37,7 @@ class Darwin:
 
 
 	def __repr__(self):
-        	return "(%d)" % (self.row)
+		return "(%d)" % (self.row)
 
 		
 
@@ -54,13 +54,15 @@ class Species:
 		return self.hopper
 
 	def hop(self):
-		y_cor += 1
-		Darwin.grid[x_cor][y_cor] = "h"
-		Darwin.print_board(Darwin.grid)
-		Darwin.grid[x_cor][y_cor] = "."
+		if str(creature.c_id) == "h":
+			y_cor += 1
+			Darwin.grid[x_cor][y_cor] = "."
+			Darwin.grid[creature.x_cor][creature.y_cor] = str(creature.c_id)
+			Darwin.grid[x_cor][y_cor] = "h"
+			return Darwin.grid
 
-	def __repr__(self):
-        return "(%s)" % (self.hopper)
+	def __repr__(Darwin):
+		return "(%s)" % (self.hopper)
 
    
 class Creature:
