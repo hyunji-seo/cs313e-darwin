@@ -25,39 +25,39 @@ class Darwin:
 
 
 #	def is_boundary(self):
-
 #	def is_creature(self):
 		# same or different species
 
 
 	def __repr__(self):
-		return "(%d)" % (self.row)
+		return "(%d, %d)" % (self.row, self.col)
 
 		
+#class Instruction:
+#	def __init__(self):
+
+	# instruction
+#	def code(self):
+		# separate instruction and n
+
+#	def program_counter(self):
+
+
 
 class Species:
 	def __init__(self):
-		self.food = []
-		self.hopper = []
-		self.rover = []
-		self.trap = []
-		self.best = []
+		self.species = []
 
-	def add_instruction(self):
-		self.food = ["left", "go"]
-		self.hopper = ["hop", "go"]
-		self.rover = ["if_enemy", "if_empty", "if_random", "left", "go", "right", "go", "hop", "go", "infect", "go"]
-		self.trap = ["if_enemy", "left", "go", "infect", "go"]
-#		self.best = ["infect"]
-		return self.hopper
+	def add_instruction(self, instruction):
+		self.species.append(instruction)
+		return self.species
 
 	def hop(self):
 #		if str(creature.c_id) == "h":
-		Darwin.grid[creature.x_cor][creature.y_cor] = "."
-		creature.y_cor += 1
-		Darwin.grid[creature.x_cor][creature.y_cor] = "h"
+		[species.x_cor][species.y_cor] = "."
+		species.y_cor += 1
+		[species.x_cor][species.y_cor] = "h"
 #			Darwin.grid[creature.x_cor][creature.y_cor] = str(creature.c_id)
-		return Darwin.grid
 
 #	def left(self):
 #	def right(self):
@@ -68,6 +68,13 @@ class Species:
 #	if_random(self):
 #	if_enemy(self):
 #	go(self):
+
+	def move(self, species):
+		for x in self.species:
+			if x == 'hop':
+				print("HOPPING")
+
+
 
 	def __repr__(Darwin):
 		return "(%s)" % (self.hopper)
@@ -82,13 +89,12 @@ class Creature:
 		self.y_cor = y_cor
 		self.c_id = c_id
 
-	def __repr__(self):
-		return "(%s, %s, %d, %d)" % (self.program_counter, self.species, self.x_cor, self.y_cor)
 
 #	def food(self):
-	def hopper(self):
-	#	self.grid[x_cor][y_cor] = str(c_id)
-		return Species.hop
+#	def hopper(self):
+#	#	self.grid[x_cor][y_cor] = str(c_id)
+#		for i in 
+#		return 
 	#	print(Darwin.print_board())
 
 #	def rover(self):
@@ -102,6 +108,9 @@ class Creature:
 #		return s.grid
 
 #	def best(self):
+
+	def __repr__(self):
+		return "(%s, %s, %d, %d)" % (self.program_counter, self.species, self.x_cor, self.y_cor)
 
 #s.start_game()
 
