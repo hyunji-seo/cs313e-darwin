@@ -66,23 +66,36 @@ Food,   facing north, at (7, 7)
 Simulate 5 moves.
 Print every grid.
 """
-
-# create different species
-food = Species()
+# create all species
 rover = Species()
 food = Species()
 hopper = Species()
+trap = Species()
 
 # add instructions for each species
 food.add_instruction("left")
 food.add_instruction("go")
+
 hopper.add_instruction("hop")
 hopper.add_instruction("go")
+
 rover.add_instruction("if_enemy")
-rover.add_instruction("")
+rover.add_instruction("if_empty")
+rover.add_instruction("if_random")
+rover.add_instruction("left")
+rover.add_instruction("go")
+rover.add_instruction("right")
+rover.add_instruction("go")
+rover.add_instruction("hop")
+rover.add_instruction("go")
+rover.add_instruction("infect")
+rover.add_instruction("go")
 
-
-hopper.move(hopper)
+trap.add_instruction("if_enemy")
+trap.add_instruction("left")
+trap.add_instruction("go")
+trap.add_instruction("infect")
+trap.add_instruction("go")
 
 # create unique creatures of a species
 f1 = Creature(food, 0, 0, "f")
@@ -92,19 +105,24 @@ h3 = Creature(hopper, 4, 3, "h")
 h4 = Creature(hopper, 4, 4, "h")
 f2 = Creature(food, 7, 7, "f")
 
-# add creatures to the board
+# create the board
 turn = 6
 s = Darwin(8, 8)
 
+# add creatures to the board
 s.add_creature(f1)
 s.add_creature(h1)
-s.add_creature(h2)
-s.add_creature(h3)
+#s.add_creature(h2)
+#s.add_creature(h3)
 s.add_creature(h4)
 s.add_creature(f2)
 
-# START GAME
-s.print_board(s.grid, turn)
+for n in range(3):
+	s.move(hopper, h1, turn)
+	s.move(hopper, h4, turn)
+
+	# START GAME
+	s.print_board(s.grid, turn)
 
 # ----------
 # darwin 7x9
@@ -120,26 +138,20 @@ Trap,   facing west,  at (6, 8)
 Simulate 5 moves.
 Print every grid.
 =================================
-turn = 6
-s = Darwin(7, 9)
-
-rover = Species()
-food = Species()
-hopper = Species()
-
-
 t1 = Creature(trap, 0, 0, "t")
 h1 = Creature(hopper, 3, 2, "h")
 r1 = Creature(rover, 5, 4, "r")
 t2 = Creature(trap, 6, 8, "t")
 
-s.add_creature(t1)
-s.add_creature(h1)
-s.add_creature(r1)
-s.add_creature(t2)
+turn = 6
+s2 = Darwin(7, 9)
 
+s2.add_creature(t1)
+s2.add_creature(h1)
+s2.add_creature(r1)
+s2.add_creature(t2)
 
-s.print_board(s.grid, turn)
+s2.print_board(s2.grid, turn)
 """
 
 # ------------
