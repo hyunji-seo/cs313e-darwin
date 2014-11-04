@@ -67,62 +67,63 @@ Simulate 5 moves.
 Print every grid.
 """
 # create all species
-rover = Species()
-food = Species()
-hopper = Species()
-trap = Species()
+rover = Species("r")
+food = Species('f')
+hopper = Species("h")
+trap = Species("t")
 
 # add instructions for each species
 food.add_instruction("left")
-food.add_instruction("go")
+food.add_instruction("go 0")
 
 hopper.add_instruction("hop")
-hopper.add_instruction("go")
+hopper.add_instruction("go 0")
 
-rover.add_instruction("if_enemy")
-rover.add_instruction("if_empty")
-rover.add_instruction("if_random")
+rover.add_instruction("if_enemy 9")
+rover.add_instruction("if_empty 7")
+rover.add_instruction("if_random 5")
 rover.add_instruction("left")
-rover.add_instruction("go")
+rover.add_instruction("go 0")
 rover.add_instruction("right")
-rover.add_instruction("go")
+rover.add_instruction("go 0")
 rover.add_instruction("hop")
-rover.add_instruction("go")
+rover.add_instruction("go 0")
 rover.add_instruction("infect")
-rover.add_instruction("go")
+rover.add_instruction("go 0")
 
-trap.add_instruction("if_enemy")
+trap.add_instruction("if_enemy 3")
 trap.add_instruction("left")
-trap.add_instruction("go")
+trap.add_instruction("go 0")
 trap.add_instruction("infect")
-trap.add_instruction("go")
+trap.add_instruction("go 0")
 
 # create unique creatures of a species
-f1 = Creature(food, 0, 0, "f")
-h1 = Creature(hopper, 3, 3, "h")
-h2 = Creature(hopper, 3, 4, "h")
-h3 = Creature(hopper, 4, 3, "h")
-h4 = Creature(hopper, 4, 4, "h")
-f2 = Creature(food, 7, 7, "f")
+f1 = Creature(food, "east", 0, 0)
+#h1 = Creature(hopper, "north", 3, 3)
+h2 = Creature(hopper, "east", 3, 4)
+h3 = Creature(hopper, "south", 4, 3)
+#h4 = Creature(hopper, "west", 4, 4)
+f2 = Creature(food, "north", 7, 7)
 
 # create the board
-turn = 6
+turn = 4
 s = Darwin(8, 8)
 
 # add creatures to the board
-s.add_creature(f1)
-s.add_creature(h1)
-#s.add_creature(h2)
-#s.add_creature(h3)
-s.add_creature(h4)
-s.add_creature(f2)
+s.add_creature(f1, food)
+#s.add_creature(h1, hopper)
+s.add_creature(h2, hopper)
+s.add_creature(h3, hopper)
+#s.add_creature(h4, hopper)
+s.add_creature(f2, food)
 
-for n in range(3):
-	s.move(hopper, h1, turn)
-	s.move(hopper, h4, turn)
+# ============ START GAME
+#s.turn(turn, hopper, h2)
+#s.turn(turn, hopper, h3)
+s.turn(turn, food, f1)
+#s.turn(turn, food, f2)
 
-	# START GAME
-	s.print_board(s.grid, turn)
+
 
 # ----------
 # darwin 7x9
