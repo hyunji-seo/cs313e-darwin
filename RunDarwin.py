@@ -67,10 +67,11 @@ Simulate 5 moves.
 Print every grid.
 """
 # create all species
-rover = Species("r")
 food = Species('f')
 hopper = Species("h")
+rover = Species("r")
 trap = Species("t")
+best = Species("b")
 
 # add instructions for each species
 food.add_instruction("left")
@@ -101,9 +102,11 @@ trap.add_instruction("go 0")
 f1 = Creature(food, "east", 0, 0)
 h1 = Creature(hopper, "north", 3, 3)
 h2 = Creature(hopper, "east", 3, 4)
-h3 = Creature(hopper, "south", 4, 3)
-h4 = Creature(hopper, "west", 4, 4)
+h3 = Creature(hopper, "south", 4, 4)
+h4 = Creature(hopper, "west", 4, 3)
 f2 = Creature(food, "north", 7, 7)
+
+r1 = Creature(rover, "north", 4, 5)
 
 # create the board
 turn = 5
@@ -117,9 +120,10 @@ s.add_creature(h3, hopper)
 s.add_creature(h4, hopper)
 s.add_creature(f2, food)
 
-# ============ START GAME
-s.turn(turn, [[food, f1], [hopper, h1], [hopper, h2], [hopper, h3],[food, f2]])
+s.add_creature(r1, rover) ## need to delete this later, and from s.turn
 
+# ============ START GAME ================
+s.turn(turn, [[food, f1], [hopper, h1], [hopper, h2], [hopper, h3], [hopper, h4], [food, f2], [rover, r1]])
 
 # ----------
 # darwin 7x9
@@ -134,21 +138,26 @@ Rover,  facing north, at (5, 4)
 Trap,   facing west,  at (6, 8)
 Simulate 5 moves.
 Print every grid.
-=================================
-t1 = Creature(trap, 0, 0, "t")
-h1 = Creature(hopper, 3, 2, "h")
-r1 = Creature(rover, 5, 4, "r")
-t2 = Creature(trap, 6, 8, "t")
 
-turn = 6
-s2 = Darwin(7, 9)
 
-s2.add_creature(t1)
-s2.add_creature(h1)
-s2.add_creature(r1)
-s2.add_creature(t2)
+# create unique creatures of a species
+t1 = Creature(trap, "south", 0, 0)
+h1 = Creature(hopper, "east", 3, 2)
+r1 = Creature(rover, "north", 5, 4)
+t2 = Creature(trap, "west", 6, 8)
 
-s2.print_board(s2.grid, turn)
+# create the board
+turn = 5
+s = Darwin(7, 9)
+
+# add creatures to the board
+s.add_creature(t1, trap)
+s.add_creature(h1, hopper)
+s.add_creature(r1, rover)
+s.add_creature(t2, trap)
+
+# ============ START GAME ================
+s.turn(turn, [[trap, t1], [hopper, h1], [rover, r1], [trap, t2]])
 """
 
 # ------------

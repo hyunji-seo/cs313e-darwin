@@ -20,29 +20,48 @@ class Darwin:
 			print("".join(" {0} ".format(col if col != None else ".") for col in row))
 		print()
 
+	# adds a creature to the grid
 	def add_creature(self, creature, species):
-	#	c_list = []
 		self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)
-#		c_list.append(creature)
 		self.grid
 
+	# moves a creature
 	def move(self, species, creature, turn):
-		#for n in range(turn):
-		if self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "south":
-			creature.x_cor += 1
-			self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)
-			self.grid[creature.x_cor-1][creature.y_cor] = "."
-		elif self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "east":
-			creature.y_cor += 1
-			self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)
-			self.grid[creature.x_cor][creature.y_cor-1] = "."
-		#self.grid
-		#if ('hop' in species.species):
-		#	print("hop")
-	#		return species.hop(species, creature, self.grid)
-		#	self.grid[creature.x_cor][creature.y_cor] = "h"
-			
-	# intakes grid and moves each creature accordingly, then prints the board
+		if species.c_id == 'h':
+			# hop instruction below
+			if self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "south":
+				creature.x_cor += 1
+				self.grid[creature.x_cor][creature.y_cor] = species.c_id
+				self.grid[creature.x_cor-1][creature.y_cor] = "."
+			elif self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "east":
+				creature.y_cor += 1
+				self.grid[creature.x_cor][creature.y_cor] = species.c_id
+				self.grid[creature.x_cor][creature.y_cor-1] = "."
+			elif self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "north":
+				creature.x_cor -= 1
+				self.grid[creature.x_cor][creature.y_cor] = species.c_id
+				self.grid[creature.x_cor+1][creature.y_cor] = "."
+			elif self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "west":
+				creature.y_cor -= 1
+				self.grid[creature.x_cor][creature.y_cor] = species.c_id
+				self.grid[creature.x_cor][creature.y_cor+1] = "."
+		elif species.c_id == 'f':
+			# returns present location
+			self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)      ### not sure if this is exactly what we want
+		elif species.c_id == 'r':
+			if creature.direction == 'north' and self.grid[creature.x_cor-1][creature.y_cor] != '.':	
+				# if different species, infect
+				if self.grid[creature.x_cor-1][creature.y_cor] != species.c_id :
+					creature.x_cor -= 1
+					self.grid[creature.x_cor][creature.y_cor] = species.c_id
+					infected = self.grid[creature.x_cor+1][creature.y_cor]
+					infected = species.c_id								### need to continue working on infect, currently not changing the actual species
+		#	elif creature.direction == 'east' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
+		#	elif creature.direction == 'south' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
+		#	elif creature.direction == 'west' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
+
+	# intakes grid, left/right then up/down
+	# moves each creature, then prints the board
 	def turn(self, turn, list_spec_creat):
 		self.print_board(self.grid, 0)
 		for x in range(1, turn):
@@ -51,16 +70,13 @@ class Darwin:
 				creature = one[1]
 				for i in self.grid[creature.x_cor][creature.y_cor]:
 					for j in i:
-						self.move(species, creature, turn)
-			#		self.grid[row][col] != "."
-			#self.move(species, creature, turn)				
+						self.move(species, creature, turn)				
 			self.print_board(self.grid, x)
-#for i in self.grid[creature.x_cor][creature.y_cor]
 
 
 #	def is_boundary(self):
 
-#	def is_creature(self):
+#	def is_creature(self, species, creature):
 		# identify same or different species
 
 	def __repr__(self):
@@ -70,21 +86,18 @@ class Darwin:
 
 
 class Species:
+
 	species = []
 	def __init__(self, c_id):
 		self.species = []
 		self.c_id = c_id
+		self.direction = ["north", "east", "south", "west"]
 
 	def add_instruction(self, instruction):
 		self.species.append(instruction)
 		return self.species
 
 #	def hop(self, species, creature, grid):
-#		grid[creature.x_cor][creature.y_cor] = str(creature.c_id)
-#		creature.y_cor += 1
-#		grid[creature.x_cor][creature.y_cor-2] = "."
-#		Darwin.grid[creature.x_cor][creature.y_cor] = str(creature.c_id)
-
 #	def left(self):
 #	def right(self):
 #	def infect(self):
@@ -102,9 +115,9 @@ class Species:
 
 class Creature:
 	def __init__(self, species, direction, x_cor, y_cor):
+		self.species = species
 		self.direction = direction
 		self.program_counter = 0
-		self.species = species
 		self.x_cor = x_cor
 		self.y_cor = y_cor
 
@@ -117,5 +130,4 @@ class Creature:
 # add_instruction
 # instruction
 # is_boundary
-# direction
 # is_creature
