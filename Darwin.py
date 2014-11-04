@@ -43,14 +43,20 @@ class Darwin:
 		#	self.grid[creature.x_cor][creature.y_cor] = "h"
 			
 	# intakes grid and moves each creature accordingly, then prints the board
-	def turn(self, turn, species, creature):
+	def turn(self, turn, list_spec_creat):
 		self.print_board(self.grid, 0)
 		for x in range(1, turn):
-
-			self.move(species, creature, turn)
+			for one in list_spec_creat:
+				species = one[0]
+				creature = one[1]
+				for i in self.grid[creature.x_cor][creature.y_cor]:
+					for j in i:
+						self.move(species, creature, turn)
 			#		self.grid[row][col] != "."
 			#self.move(species, creature, turn)				
 			self.print_board(self.grid, x)
+#for i in self.grid[creature.x_cor][creature.y_cor]
+
 
 #	def is_boundary(self):
 

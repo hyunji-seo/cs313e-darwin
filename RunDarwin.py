@@ -99,30 +99,26 @@ trap.add_instruction("go 0")
 
 # create unique creatures of a species
 f1 = Creature(food, "east", 0, 0)
-#h1 = Creature(hopper, "north", 3, 3)
+h1 = Creature(hopper, "north", 3, 3)
 h2 = Creature(hopper, "east", 3, 4)
 h3 = Creature(hopper, "south", 4, 3)
-#h4 = Creature(hopper, "west", 4, 4)
+h4 = Creature(hopper, "west", 4, 4)
 f2 = Creature(food, "north", 7, 7)
 
 # create the board
-turn = 4
+turn = 5
 s = Darwin(8, 8)
 
 # add creatures to the board
 s.add_creature(f1, food)
-#s.add_creature(h1, hopper)
+s.add_creature(h1, hopper)
 s.add_creature(h2, hopper)
 s.add_creature(h3, hopper)
-#s.add_creature(h4, hopper)
+s.add_creature(h4, hopper)
 s.add_creature(f2, food)
 
 # ============ START GAME
-#s.turn(turn, hopper, h2)
-#s.turn(turn, hopper, h3)
-s.turn(turn, food, f1)
-#s.turn(turn, food, f2)
-
+s.turn(turn, [[food, f1], [hopper, h1], [hopper, h2], [hopper, h3],[food, f2]])
 
 
 # ----------
