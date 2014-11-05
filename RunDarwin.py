@@ -84,10 +84,7 @@ rover.add_instruction("if_enemy 9")
 rover.add_instruction("if_empty 7")
 rover.add_instruction("if_random 5")
 rover.add_instruction("left")
-rover.add_instruction("go 0")
-rover.add_instruction("right")
-rover.add_instruction("go 0")
-rover.add_instruction("hop")
+rover.add_instructio
 rover.add_instruction("go 0")
 rover.add_instruction("infect")
 rover.add_instruction("go 0")
@@ -123,7 +120,7 @@ s.add_creature(f2, food)
 s.add_creature(r1, rover) ## need to delete this later, and from s.turn
 
 # ============ START GAME ================
-s.turn(turn, [[food, f1], [hopper, h1], [hopper, h2], [hopper, h3], [hopper, h4], [food, f2], [rover, r1]])
+s.turn(turn, [[food, f1], [hopper, h1], [hopper, h2], [hopper, h3], [hopper, h4], [food, f2]])
 
 # ----------
 # darwin 7x9

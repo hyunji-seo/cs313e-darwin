@@ -27,8 +27,8 @@ class Darwin:
 
 	# moves a creature
 	def move(self, species, creature, turn):
-		if species.c_id == 'h' or species.c_id == 'r':
-			# hop instruction below
+		if species.c_id == 'h':
+			# hop instruction 
 			if self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "south":
 				creature.x_cor += 1
 				self.grid[creature.x_cor][creature.y_cor] = species.c_id
@@ -46,7 +46,7 @@ class Darwin:
 				self.grid[creature.x_cor][creature.y_cor] = species.c_id
 				self.grid[creature.x_cor][creature.y_cor+1] = "."
 		elif species.c_id == 'f':
-			# returns present location
+			# left instruction
 			if creature.direction == "north":
 				creature.direction = "west"
 			elif creature.direction == "west":
@@ -56,19 +56,19 @@ class Darwin:
 			elif creature.direction == "east":
 				creature.direction = "north" 
 			print(creature.direction)
-			self.LeftDirection()
-			#self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)      ### not sure if this is exactly what we want
+			#	self.LeftDirection()
 		elif species.c_id == 'r':
-			if self.grid[creature.x_cor][creature.y_cor] != '.' and self.grid[creature.x_cor][creature.y_cor] != 'r':	
-				# if different species, infect
-				infected = self.grid[creature.x_cor][creature.y_cor]
-				infected = "r"							### need to continue working on infect, currently not changing the actual species
+			if creature.direction == 'north' and self.grid[creature.x_cor-1][creature.y_cor] != '.':	
+				infect(species, self.grid[creature.x_cor-1][creature.y_cor], 0)
+
+
+					#species.c_id = self.grid[creature.x_cor+1][creature.y_cor]
 		#	elif creature.direction == 'east' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
 		#	elif creature.direction == 'south' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
 		#	elif creature.direction == 'west' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
 
 
-
+	
 	#
 	#	if creature.direction == "north":
 	#		creature.direction = "west"
@@ -92,14 +92,13 @@ class Darwin:
 				creature = one[1]
 				for i in self.grid[creature.x_cor][creature.y_cor]:
 					for j in i:
-						self.move(species, creature, turn)				
+						try:
+							self.move(species, creature, turn)
+						except:
+							print("error")
+							# if_wall
+										
 			self.print_board(self.grid, x)
-
-
-#	def is_boundary(self):
-
-#	def is_creature(self, species, creature):
-		# identify same or different species
 
 	def __repr__(self):
 		return "(%d, %d)" % (self.row, self.col)
@@ -115,20 +114,10 @@ class Species:
 		self.c_id = c_id
 		self.direction = ["north", "east", "south", "west"]
 
+
 	def add_instruction(self, instruction):
 		self.species.append(instruction)
 		return self.species
-
-#	def hop(self, species, creature, grid):
-#	def left(self):
-#	def right(self):
-#	def infect(self):
-
-#	if_empty(self):
-#	if_wall(self):
-#	if_random(self):
-#	if_enemy(self):
-#	go(self):
 
 	def __repr__(self):
 		return "(%s)" % (self.species)
@@ -149,7 +138,15 @@ class Creature:
 
 
 # THINGS TO DO
+
 # add_instruction
-# instruction
-# is_boundary
+# if_wall/boundary
+# if_random
+# infect
 # is_creature
+
+
+def infect(species, creature, program_counter):
+		program_counter = 0
+		species = (["hop"])
+		return species
