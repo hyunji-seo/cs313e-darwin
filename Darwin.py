@@ -27,7 +27,7 @@ class Darwin:
 
 	# moves a creature
 	def move(self, species, creature, turn):
-		if species.c_id == 'h':
+		if species.c_id == 'h' or species.c_id == 'r':
 			# hop instruction below
 			if self.grid[creature.x_cor][creature.y_cor] != "." and creature.direction == "south":
 				creature.x_cor += 1
@@ -47,18 +47,40 @@ class Darwin:
 				self.grid[creature.x_cor][creature.y_cor+1] = "."
 		elif species.c_id == 'f':
 			# returns present location
-			self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)      ### not sure if this is exactly what we want
+			if creature.direction == "north":
+				creature.direction = "west"
+			elif creature.direction == "west":
+				creature.direction = "south"
+			elif creature.direction == "south":
+				creature.direction = "east"
+			elif creature.direction == "east":
+				creature.direction = "north" 
+			print(creature.direction)
+			self.LeftDirection()
+			#self.grid[creature.x_cor][creature.y_cor] = str(species.c_id)      ### not sure if this is exactly what we want
 		elif species.c_id == 'r':
-			if creature.direction == 'north' and self.grid[creature.x_cor-1][creature.y_cor] != '.':	
+			if self.grid[creature.x_cor][creature.y_cor] != '.' and self.grid[creature.x_cor][creature.y_cor] != 'r':	
 				# if different species, infect
-				if self.grid[creature.x_cor-1][creature.y_cor] != species.c_id :
-					creature.x_cor -= 1
-					self.grid[creature.x_cor][creature.y_cor] = species.c_id
-					infected = self.grid[creature.x_cor+1][creature.y_cor]
-					infected = species.c_id								### need to continue working on infect, currently not changing the actual species
+				infected = self.grid[creature.x_cor][creature.y_cor]
+				infected = "r"							### need to continue working on infect, currently not changing the actual species
 		#	elif creature.direction == 'east' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
 		#	elif creature.direction == 'south' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
 		#	elif creature.direction == 'west' and self.grid[creature.x_cor-1][creature.y_cor] != '.':
+
+
+
+	#
+	#	if creature.direction == "north":
+	#		creature.direction = "west"
+	#	elif creature.direction == "west":
+	#		creature.direction = "south"
+	#	elif creature.direction == "south":
+	#		creature.direction = "east"
+	#	elif creature.direction == "east":
+	#		creature.direction = "north" 
+
+
+
 
 	# intakes grid, left/right then up/down
 	# moves each creature, then prints the board
