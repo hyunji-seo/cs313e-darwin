@@ -78,9 +78,9 @@ food.add_instruction("left")
 food.add_instruction("go 0")
 
 hopper.add_instruction("hop")
-hopper.add_instruction("go 0")
+hopper.add_instruction("go", 0)
 
-rover.add_instruction("if_enemy 9")
+rover.add_instruction("if_enemy", 9)
 rover.add_instruction("if_empty 7")
 rover.add_instruction("if_random 5")
 rover.add_instruction("left")
@@ -113,17 +113,17 @@ turn = 5
 s = Darwin(8, 8)
 
 # add creatures to the board
-s.add_creature(f1, food)
+#s.add_creature(f1, food)
 s.add_creature(h1, hopper)
-s.add_creature(h2, hopper)
-s.add_creature(h3, hopper)
-s.add_creature(h4, hopper)
-s.add_creature(f2, food)
+#s.add_creature(h2, hopper)
+#s.add_creature(h3, hopper)
+#s.add_creature(h4, hopper)
+#s.add_creature(f2, food)
 
-s.add_creature(r1, rover) ## need to delete this later, and from s.turn
+#s.add_creature(r1, rover) ## need to delete this later, and from s.turn
 
 # ============ START GAME ================
-s.turn(turn, [[food, f1], [hopper, h1], [hopper, h2], [hopper, h3], [hopper, h4], [food, f2]])
+s.turn(turn, [[hopper, h1]])
 
 # ----------
 # darwin 7x9
