@@ -1,4 +1,4 @@
-from random import seed
+from random import randint, sample, seed
 import sys
 from Darwin import Darwin, Species, Creature
 
