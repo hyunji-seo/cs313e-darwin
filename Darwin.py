@@ -1,12 +1,15 @@
-from random import randint, sample, seed
-
+## IT'S DARWIN
 class Species:
-	def __init__(self, c_id):
+	def __init__(self, name):
 		self.instructions = []
-		self.c_id = c_id
+		self.name = name
+		self.c_id = name[0]
 
 	def get_instruction(self, instructions, program_counter):
 		return instructions[program_counter]
+
+	def list_instructions(self):
+		return self.instructions
 
 	def add_instruction(self, instructions, program_counter = None):
 		# each instruction is a function
@@ -19,10 +22,10 @@ class Species:
 
 
 class Creature:
-	def __init__(self, species, direction, program_counter, x_cor, y_cor): 
+	def __init__(self, species, direction, x_cor, y_cor): 
 		self.species = species
 		self.direction = direction
-		self.program_counter = program_counter
+		self.program_counter = 0
 		self.x_cor = x_cor
 		self.y_cor = y_cor
 
@@ -33,209 +36,259 @@ class Creature:
 			count += 1
 		else:
 			program_counter += 1
-		return species.get_instruction(instructions, program_counter), direction
-
+		return species.get_instruction(species, instructions, program_counter), direction
+	
+	def turn(self, creature_grid):
+		c_species = self.species
+		self.program_counter = 0 
+		stop_turn = False
+		while stop_turn == False:
+			for inst in c_species.instructions:
+				current = inst[self.program_counter].split(' ')
+				if len(current) > 1:
+					if current[0] == "if_wall":
+						if_wall(self, creature_grid)
+					if current[0] == "if_empty":
+						if_empty(self, creature_grid)
+					if current[0] == "if_enemy":
+						if_enemy(self, creature_grid)
+					if current[0] == "if_random":
+						if_random()
+					if current[0] == "infect":
+						infect(self, creature_grid)
+				if len(current) == 1:
+					if current[0] == "hop":
+						hop(self, creature_grid)
+					if current[0] == "left":
+						left(self, creature_grid)
+					if current[0] == "right":
+						right(self, creature_grid)
+					if current[0] == "go":
+						Creature.program_counter = 0
+					stop_turn = True
+		return stop_turn
 
 class Darwin:
 	def __init__(self, x, y):
+		assert x != 0
+		assert y != 0
 		self.row = x
 		self.col = y
-		self.grid = [["."] * self.col for x in range(self.row)]
+		self.creature_grid = []
+		self.display_grid = []
+		global r
+		r = x
+		global c
+		c = y
+		self.display_grid = [["."] * self.col for x in range(self.row)]
+		for row in range(0, self.row):
+			temp = []	
+			for col in range(0, self.col):
+				temp.append(Creature(None, None, None, None))
+			self.creature_grid.append(temp)
 
-	def turn(self, turn, list_turn):
-		s.print_board(s.grid, 0)
-		for x in range(1, turn):
-			for one in list_turn:
-				species = one[0]
-				creature = one[1]
-				instructions = one[2]
-				direction = one[3]
-				program_counter = one[4]
-				for row in self.grid[0][0]:
-					for c in row:
-						try:
-							m = creature.get_move(species, instructions, direction, program_counter)
-							print(m[0])
-							if m[0] == ["hop"]:
-								assert creature.x_cor >= 0 and creature.y_cor >= 0
-								if self.grid[creature.x_cor+1][creature.y_cor] != species.c_id and creature.direction == "south":
-									creature.x_cor += 1
-									self.grid[creature.x_cor][creature.y_cor] = species.c_id
-									self.grid[creature.x_cor-1][creature.y_cor] = '.'
-								if self.grid[creature.x_cor][creature.y_cor+1] != species.c_id and creature.direction == "east":
-									creature.y_cor += 1
-									self.grid[creature.x_cor][creature.y_cor] = species.c_id
-									self.grid[creature.x_cor][creature.y_cor-1] = '.'
-								if self.grid[creature.x_cor-1][creature.y_cor] != species.c_id and creature.direction == "north":
-									creature.x_cor -= 1
-									self.grid[creature.x_cor][creature.y_cor] = species.c_id
-									self.grid[creature.x_cor+1][creature.y_cor] = '.'
-								if self.grid[creature.x_cor][creature.y_cor-1] != species.c_id and creature.direction == "west":
-									creature.y_cor -= 1
-									self.grid[creature.x_cor][creature.y_cor] = species.c_id
-									self.grid[creature.x_cor][creature.y_cor+1] = '.'
-
-							if m[0] == ["left"]  :
-								if creature.direction == "north":
-									creature.direction = "west"
-								if creature.direction == "west":
-									creature.direction = "south"
-								if creature.direction == "south":
-									creature.direction = "east"
-								if creature.direction == "east":
-									creature.direction = "north" 
-							#	print(creature.direction)
-							
-							if m[0] == ["right"]:
-								if creature.direction == "north":
-									creature.direction = "east"
-								if creature.direction == "west":
-									creature.direction = "north"
-								if creature.direction == "south":
-									creature.direction = "west"
-								if creature.direction == "east":
-									creature.direction = "south" 
-
-							if m[0][0] == "infect":
-								if creature.direction == "north" and self.grid[creature.x_cor-1][creature.y_cor] != '.' and self.grid[creature.x_cor-1][creature.y_cor] != creature.species.c_id :
-							   		print(self.grid[creature.x_cor-1][creature.y_cor])
-							   		self.grid[creature.x_cor-1][creature.y_cor] = creature.species
-							
-							if m[0][0] == "if_empty":
-								index = m[0][1]								
-								if self.grid[creature.x_cor+1][creature.y_cor] == '.' and creature.direction == "south":
-									print(creature.species.get_instruction(species.instructions, index))
-								if self.grid[creature.x_cor][creature.y_cor+1] == '.' and creature.direction == "east":
-									print(creature.species.get_instruction(species.instructions, index))
-								if self.grid[creature.x_cor-1][creature.y_cor] == '.' and creature.direction == "north":
-									print(creature.species.get_instruction(species.instructions, index))
-								if self.grid[creature.x_cor][creature.y_cor-1] == '.' and creature.direction == "west":
-									print(creature.species.get_instruction(species.instructions, index))
-
-							if m[0][0] == "if_wall":
-								index = m[0][1]
-								if self.grid[creature.x_cor+1][creature.y_cor] != '.' and creature.direction == "south":		## what's a wall?
-									species.get_instruction(species.instructions, index)
-								if self.grid[creature.x_cor][creature.y_cor+1] != '.' and creature.direction == "east":
-									species.get_instruction(species.instructions, index)
-								if self.grid[creature.x_cor-1][creature.y_cor] != '.' and creature.direction == "north":
-									species.get_instruction(species.instructions, index)
-								if self.grid[creature.x_cor][creature.y_cor-1] != '.' and creature.direction == "west":
-									species.get_instruction(species.instructions, index)
-							
-						#	if m[0][0] == "if_random":
-						#		index = m[0][1]
-						#		random.seed(0) 
-						#		if random.randrange(0, 2) != %2:
-									# not sure here
-							
-							if m[0][0] == "if_enemy":
-								index = m[0][1]
-								if self.grid[creature.x_cor+1][creature.y_cor] != species.c_id and creature.direction == "south":
-									species.get_instruction(species.instructions, index)
-								if self.grid[creature.x_cor][creature.y_cor+1] != species.c_id and creature.direction == "east":
-									species.get_instruction(species.instructions, index)
-								if self.grid[creature.x_cor-1][creature.y_cor] != species.c_id and creature.direction == "north":
-									species.get_instruction(species.instructions, index)
-								if self.grid[creature.x_cor][creature.y_cor-1] != species.c_id and creature.direction == "west":
-									species.get_instruction(species.instructions, index)
-								creature.program_counter += 1
-								print(creature.program_counter)
-								#print(creature.species.instructions)
-								print(creature.species.instructions[creature.program_counter])
-								creature.species.get_instruction(creature.species.instructions, creature.program_counter)
-							
-
-							if m[0][0] == "go":
-								counter = m[0][1]
-								return (species.get_instruction(species.instructions, counter))
-
-						#assert creature.x_cor >= 0 and creature.y_cor >= 0
-	
-						except AssertionError:
-							m = creature.get_move(species, instructions, direction, program_counter)
-							print("assertion")
-						except IndexError:
-							print("index")
-					
-			s.print_board(s.grid, x)
-
-
-	def print_board(self, grid, turn):
-		print("Turn = ", str(turn) + ".")
-		print("   " + " ".join("{0:2d}".format(i) for i in range(len(grid[0]))))
-		for i, row in enumerate(grid, 0):
-			print("{0:2d}".format(i),end= " ")
-			print("".join(" {0} ".format(col if col != None else ".") for col in row))
+	def display(self, display_grid, turn):
+		print("Turn =", str(turn) + ".")
+		print("  " + "".join("{0:d}".format(i) for i in range(len(display_grid[0]))))
+		for i, row in enumerate(display_grid, 0):
+			print("{0:d}".format(i),end= " ")
+			print("".join("{0}".format(col if col != None else ".") for col in row))
 		print()
 
-	def add_creature(self, creature, species):
-		self.grid[creature.x_cor][creature.y_cor] = species.c_id
-		self.grid
+	def print_board(self, display_grid, creature_grid, turn):
+		display_grid = Darwin.display(self, display_grid, turn)
+		if turn == 0:
+			for i in range(0, self.row):
+				for j in range(0, self.col):
+					if self.creature_grid[i][j].species == None:
+						self.display_grid[i][j] = '.'
+					else:
+						self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
+					#print(self.display_grid[i][j])			
+		else:		
+			for i in range(0, self.row):
+				for j in range(0, self.col):
+					if self.creature_grid[i][j].species == None:
+						self.display_grid[i][j] = '.'
+					else:
+						self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
+					#print(self.display_grid[i][j])
+		return self.display_grid
+
+	def master_turn(self, turn, list_creat):
+		self.print_board(self.display_grid, self.creature_grid, 0)
+		for x in range(0, turn):
+			for creat in list_creat:
+				if creat.turn(self.creature_grid) == True:
+					self.creature_grid
+			self.print_board(self.display_grid, self.creature_grid, x)
 
 
 
-turn = 5
-s = Darwin(8,8)
+	def add_creature(self, species, direction, x_cor, y_cor):
+		self.creature_grid[x_cor][y_cor] = Creature(species, direction, x_cor, y_cor)
+		self.creature_grid
+
+def hop(creature_object, creature_grid):
+	if creature_object.direction == "north":
+		if not if_wall(creature_object) and if_empty(creature_object, creature_grid):
+			creature_grid[creature_object.x_cor-1][creature_object.y_cor] = Creature(creature_object.species, creature_object.direction, creature_object.x_cor-1, creature_object.y_cor)
+			creature_grid[creature_object.x_cor][creature_object.y_cor] = Creature(None, None, None, None)
 
 
-hopper = Species("h")
-hopper.add_instruction("hop")
-hopper.add_instruction("go", 0)
+	if creature_object.direction == "south":
+		if not if_wall(creature_object) and if_empty(creature_object, creature_grid):
+			creature_grid[creature_object.x_cor+1][creature_object.y_cor] = Creature(creature_object.species, creature_object.direction, creature_object.x_cor+1, creature_object.y_cor)
+			creature_grid[creature_object.x_cor][creature_object.y_cor] = Creature(None, None, None, None)
 
-food = Species('f')
-food.add_instruction("left")
-food.add_instruction("go", 0)
+			
+	if creature_object.direction == "east":
+		if not if_wall(creature_object) and if_empty(creature_object, creature_grid):
+			creature_grid[creature_object.x_cor][creature_object.y_cor+1] = Creature(creature_object.species, creature_object.direction, creature_object.x_cor, creature_object.y_cor+1)
+			creature_grid[creature_object.x_cor][creature_object.y_cor] = Creature(None, None, None, None)
+			
 
-rover = Species("r")
-rover.add_instruction("hop")
-rover.add_instruction("if_enemy")
-#rover.add_instruction("if_empty", 7)
-#rover.add_instruction("if_random", 5)
-#rover.add_instruction("left")
-#rover.add_instruction("go", 0)
-#rover.add_instruction("right")
-#rover.add_instruction("go", 0)
-#rover.add_instruction("hop")
-#rover.add_instruction("go", 0)
-rover.add_instruction("infect")
-#rover.add_instruction("go", 0)
+	if creature_object.direction == "west":
+		if not if_wall(creature_object) and if_empty(creature_object, creature_grid):
+			creature_grid[creature_object.x_cor][creature_object.y_cor-1] = Creature(creature_object.species, creature_object.direction, creature_object.x_cor, creature_object.y_cor-1)
+			creature_grid[creature_object.x_cor][creature_object.y_cor] = Creature(None, None, None, None)
+					
+def left(creature_object, creature_grid):
+	if creature_object.direction == "north":
+		creature_object.direction == "west"
+	if creature_object.direction == "west":
+		creature_object.direction == "south"
+	if creature_object.direction == "south":
+		creature_object.direction == "east"
+	if creature_object.direction == "east":
+		creature_object.direction == "north"
 
-f1 = Creature(food, "east", 0, 0, 0)
-h1 = Creature(hopper, "north", 0, 3, 3)
-h2 = Creature(hopper, "east", 0, 3, 4)
-h3 = Creature(hopper, "south", 0, 4, 4)
-h4 = Creature(hopper, "west", 0, 4, 3)
-f2 = Creature(food, "north", 0, 7, 7)
+def right(creature_object, creature_grid):
+	if creature_object.direction == "north":
+		creature_object.direction == "east"
+	if creature_object.direction == "west":
+		creature_object.direction == "north"
+	if creature_object.direction == "south":
+		creature_object.direction == "west"
+	if creature_object.direction == "east":
+		creature_object.direction == "south"
 
-r1 = Creature(rover, "north", 0, 4, 5)
+def infect(creature_object, creature_grid):
+	if creature_object.direction == "north":
+		if if_enemy(creature_object):
+			d = creature_grid[creature_object.x_cor-1][creature_object.y_cor].direction
+			creature_grid[creature_object.x_cor-1][creature_object.y_cor] = Creature(creature_object.species, d, creature_object.x_cor-1, creature_object.y_cor)
+	if creature_object.direction == "south":
+		if if_enemy(creature_object):
+			d = creature_grid[creature_object.x_cor+1][creature_object.y_cor].direction
+			creature_grid[creature_object.x_cor+1][creature_object.y_cor] = Creature(creature_object.species, d, creature_object.x_cor+1, creature_object.y_cor)
+	if creature_object.direction == "east":
+		if if_enemy(creature_object):
+			d = creature_grid[creature_object.x_cor][creature_object.y_cor+1].direction
+			creature_grid[creature_object.x_cor][creature_object.y_cor+1] = Creature(creature_object.species, d, creature_object.x_cor, creature_object.y_cor+1)
+	if creature_object.direction == "west":
+		if if_enemy(creature_object): 
+			d = creature_grid[creature_object.x_cor][creature_object.y_cor-1].direction
+			creature_grid[creature_object.x_cor][creature_object.y_cor-1] = Creature(creature_object.species, d, creature_object.x_cor, creature_object.y_cor-1)
 
-#s.add_creature(f1, food)
-#s.add_creature(h1, hopper)
-s.add_creature(h2, hopper)
-#s.add_creature(h3, hopper)
-#s.add_creature(h4, hopper)
-#s.add_creature(f2, food)
+def if_wall(creature_object):
+	r
+	c
+	if creature_object.direction == "south" and creature_object.x_cor ==  r:
+		return True
+	if creature_object.direction == "north" and creature_object.x_cor ==  0:
+		return True
+	if creature_object.direction == "east" and creature_object.y_cor ==  c:
+		return True
+	if creature_object.direction == "west" and creature_object.y_cor ==  0:
+		return True
+	else:
+		return False
 
-s.add_creature(r1, rover)
-#print(h1.get_move(hopper, hopper.instructions, h1.direction, h1.program_counter))
-#print(hopper.get_instruction(hopper.instructions, h1.program_counter))
+def if_empty(creature_object, creature_grid):
+	if creature_object.direction == "north":
+		if not if_wall(creature_object) and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species == None:
+			return True
+	if creature_object.direction == "south":
+		if not if_wall(creature_object) and creature_grid[creature_object.x_cor+1][creature_object.y_cor].species == None:
+			return True
+	if creature_object.direction == "east":
+		if not if_wall(creature_object) and creature_grid[creature_object.x_cor][creature_object.y_cor+1].species == None:
+			return True
+	if creature_object.direction == "west":
+		if not if_wall(creature_object) and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species == None:
+			return True
+	else:
+		return False
 
-#hopper.get_instruction()
-#print(hopper.instructions)
+def if_random():
+	random.seed(0) 
+	if random.randrange(0, 2)  % 2 != 0:
+		return True
+	else:
+		return False
 
-#print(hopper.get_instruction(hopper.instructions, h2.program_counter))
+def if_enemy(creature_object, creature_grid):
+	if creature_object.direction == "north":
+		if not if_wall(creature_object) and not if_empty(creature_object, creature_grid) and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species != creature_oject.species:
+			return True
+	if creature_object.direction == "south":
+		if not if_wall(creature_object) and not if_empty(creature_object, creature_grid) and creature_grid[creature_object.x_cor+1][creature_object.y_cor].species != creature_object.species:
+			return True
+	if creature_object.direction == "east":
+		if not if_wall(creature_object) and not if_empty(creature_object, creature_grid) and creature_grid[creature_object.x_cor][creature_object.y_cor+1].species != creature_object.species:
+			return True
+	if creature_object.direction == "west":
+		if not if_wall(creature_object) and not if_empty(creature_object, creature_grid) and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species != creature_object.species:
+			return True
+	else:
+		return False
+
+if __name__ == "__main__":
+	turn = 5
+	s = Darwin(8,8)
+	s.add_creature(Species('hopper'), 'south', 0, 0 )
+	#hop(creature_object, creature_grid)
+
+'''	
+
+	#print(if_wall(s.creature_grid[0][0]))
+	#for i in s.creature_grid:
+	 #	for j in i:
+	 #		print (j.species)
+	print(s.display(s.display_grid, s.creature_grid, turn))
 
 
-#s.print_board(s.grid,turn)
 
-s.turn(turn, [[rover, r1, rover.instructions, r1.direction, r1.program_counter], [hopper, h2, hopper.instructions, h2.direction, h2.program_counter]])
+	def print_board(self, display_grid, turn):
+		print("Turn =", str(turn) + ".")
+		print("  " + "".join("{0:d}".format(i) for i in range(len(display_grid[0]))))
+		for i, row in enumerate(display_grid, 0):
+			print("{0:d}".format(i),end= " ")
+			print("".join("{0}".format(col if col != None else ".") for col in row))
+		print()
 
-#s.print_board(s.grid,turn)
 
-#[food, f1, food.instructions, f1.direction, f1.program_counter], 
-#	[hopper, h1, hopper.instructions, h1.direction, h1.program_counter],
-#	[hopper, h2, hopper.instructions, h2.direction, h2.program_counter],
-#	[hopper, h3, hopper.instructions, h3.direction, h3.program_counter],
-#	[hopper, h4, hopper.instructions, h4.direction, h4.program_counter], 
-#	[food, f2, food.instructions, f2.direction, f2.program_counter],
+		for i in range(0, self.row):
+			for j in range(0, self.col):
+				if self.creature_grid[i][j].species == None:
+					self.display_grid[i][j] = '.'
+				else:
+					self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
+		print(self.display_grid)
+
+
+		top_line = "  "
+		for c in range(self.col):
+			top_line += str(c%10)
+
+		print (top_line) # change display grid name
+		for x in self.display_grid:
+ 			line = ''
+ 			col_line = 0
+ 			for y in x:
+ 				line += y
+ 				col_line += 1
+ 			print(col_line)
+ 
+'''

@@ -1,6 +1,8 @@
+## IT'S RUNDARWIN
+
 from random import randint, sample, seed
 import sys
-from Darwin import Darwin, Species, Creature
+from Darwin import *
 
 # ----
 # food
@@ -106,24 +108,21 @@ h3 = Creature(hopper, "south", 4, 4)
 h4 = Creature(hopper, "west", 4, 3)
 f2 = Creature(food, "north", 7, 7)
 
-r1 = Creature(rover, "north", 4, 5)
-
 # create the board
 turn = 5
 s = Darwin(8, 8)
 
-# add creatures to the board
-#s.add_creature(f1, food)
-s.add_creature(h1, hopper)
-#s.add_creature(h2, hopper)
-#s.add_creature(h3, hopper)
-#s.add_creature(h4, hopper)
-#s.add_creature(f2, food)
+s.add_creature(Species('food'), "east", 0, 0)
+s.add_creature(Species('hopper'), "north", 3, 3)
+s.add_creature(Species('hopper'), "east", 3, 4)
+s.add_creature(Species('hopper'), "south", 4, 4)
+s.add_creature(Species('hopper'), "west", 4, 3)
+s.add_creature(Species('food'), "north", 7, 7)
 
-#s.add_creature(r1, rover) ## need to delete this later, and from s.turn
+s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
 
 # ============ START GAME ================
-s.turn(turn, [[hopper, h1]])
+#s.turn(turn, [[hopper, h1]])
 
 # ----------
 # darwin 7x9

@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-
-# -------------------------------
-# projects/darwin/TestDarwin.py
-# Copyright (C) 2014
-# Glenn P. Downing
-# -------------------------------
-
 # -------
 # imports
 # -------
@@ -13,47 +5,55 @@
 from io       import StringIO
 from unittest import main, TestCase
 
-from Darwin import darwin_read, darwin_eval, darwin_print, darwin_solve
+from Darwin import *
 
 # -----------
 # TestDarwin
 # -----------
 
 class TestDarwin (TestCase) :
-    # ----
-    # grid
-    # ----
+    def test_get_instruction_1(self, instructions, program_counter):
+        w = StringIO("f")
+
+
+    def test_Creature_1(self):
+
+    def test_Darwin_1(self):
+
+
+    def hop(self):
+
+    def left(self):
+
+    def right(self):
+
+    def infect(self):
+
+    def if_wall(self):
+
+    def if_empty(self):
+
+    def if_random(self):
+
+    def if_enemy(self):
+
+
 
     def test_grid (self) :
         r    = StringIO("1 10\n100 200\n201 210\n900 1000\n")
         i, j = collatz_read(r)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
-        
-    # --------------
-    # place_creature
-    # --------------
-
-    # -------
-    # species
-    # -------
 
     def test_species_1 (self) :
         v = collatz_eval(1, 10)
         self.assertEqual(v, 20)
-        
-    # --------
-    # creature
-    # --------
+
 
     def test_creature_1 (self) :
         w = StringIO()
         collatz_print(w, 1, 10, 20)
         self.assertEqual(w.getvalue(), "1 10 20\n")
-
-    # ----
-    # turn
-    # ----
 
     def test_turn_1 (self) :
         r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
