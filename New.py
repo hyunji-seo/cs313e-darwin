@@ -1,6 +1,5 @@
 from random import randint, sample, seed
 
-## IT'S DARWIN
 class Species:
 	def __init__(self, name):
 		self.instructions = []
@@ -16,8 +15,7 @@ class Species:
 		# each instruction is a function
 		[a] = [instructions]
 		self.instructions.append(a)
-				return self.instructions
-
+		return self.instructions
 
 class Creature:
 	def __init__(self, species, direction, x_cor, y_cor): 
@@ -26,48 +24,15 @@ class Creature:
 		self.program_counter = 0
 		self.x_cor = x_cor
 		self.y_cor = y_cor
-
+	
 	def get_move(self, species, instructions, direction, program_counter):
-		
 		count = 0
 		if count == 0:
 			program_counter = 0
 			count += 1
 		else:
 			program_counter += 1
-		
 		return species.get_instruction(species, instructions, program_counter), direction
-	
-	def turn(self, creature_grid):
-		c_species = self.species
-		self.program_counter = 0 
-		stop_turn = False
-		while stop_turn == False:
-			for inst in c_species.instructions:
-				current = inst[self.program_counter].split(' ')
-				if len(current) > 1:
-					if current[0] == "if_wall":
-						if_wall(self, creature_grid)
-					if current[0] == "if_empty":
-						if_empty(self, creature_grid)
-					if current[0] == "if_enemy":
-						if_enemy(self, creature_grid)
-					if current[0] == "if_random":
-						if_random()
-					if current[0] == "infect":
-						infect(self, creature_grid)
-
-				if len(current) == 1:
-					if current[0] == "hop":
-						hop(self, creature_grid)
-					if current[0] == "left":
-						left(self, creature_grid)
-					if current[0] == "right":
-						right(self, creature_grid)
-					if current[0] == "go":
-						Creature.program_counter = 0
-					stop_turn = True
-		return stop_turn
 
 class Darwin:
 	def __init__(self, x, y):
@@ -89,40 +54,11 @@ class Darwin:
 
 	def display(self, display_grid, turn):
 		print("Turn =", str(turn) + ".")
-		print("  " + "".join("{0:d}".format(i%10) for i in range(len(display_grid[0]))))
+		print("  " + "".join("{0:d}".format(i) for i in range(len(display_grid[0]))))
 		for i, row in enumerate(display_grid, 0):
 			print("{0:d}".format(i%10),end= " ")
 			print("".join("{0}".format(col if col != None else ".") for col in row))
 		print()
-
-	def print_board(self, display_grid, creature_grid, turn):
-		display_grid = Darwin.display(self, display_grid, turn)
-		if turn == 0:
-			for i in range(0, self.row):
-				for j in range(0, self.col):
-					if self.creature_grid[i][j].species == None:
-						self.display_grid[i][j] = '.'
-					else:
-						self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
-					#print(self.display_grid[i][j])			
-		else:		
-			for i in range(0, self.row):
-				for j in range(0, self.col):
-					if self.creature_grid[i][j].species == None:
-						self.display_grid[i][j] = '.'
-					else:
-						self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
-					#print(self.display_grid[i][j])
-		return self.display_grid
-
-	def master_turn(self, turn, list_creat):
-		self.print_board(self.display_grid, self.creature_grid, 0)
-		for x in range(0, turn):
-			for creat in list_creat:
-				if creat.turn(self.creature_grid) == True:
-					self.creature_grid
-			self.print_board(self.display_grid, self.creature_grid, x)
-
 
 
 	def add_creature(self, creature): # may delete direction and x_cor, y_cor
@@ -130,6 +66,32 @@ class Darwin:
 		x_cor = creature.x_cor
 		y_cor = creature.y_cor
 		self.creature_grid[x_cor][y_cor]
+	#	self.creature_grid
+
+
+
+	"""
+	def turn(self, creature_grid):
+		c_species = self.species
+		self.program_counter = 0 
+		stop_turn = False
+		count = 0
+		while stop_turn == False:
+			for inst in c_species.instructions:
+				current = inst[self.program_counter].split(' ')
+				if len(current) > 1:
+					if current[0] == "if_wall":
+						if_wall(self, creature_grid)
+						count += 1
+					elif current[0] == "if_empty":
+						if_empty(self, creature_grid)
+					if count > 0:
+						program_counter += 1
+						get_instruction
+					return species.get_instruction(species, instructions, program_counter), direction
+					stop_turn = True
+		return stop_turn
+	"""
 
 def hop(creature_object, creature_grid):
 	
@@ -242,45 +204,4 @@ def if_random():
 	else:
 		return False
 
-'''	
 
-	#print(if_wall(s.creature_grid[0][0]))
-	#for i in s.creature_grid:
-	 #	for j in i:
-	 #		print (j.species)
-	print(s.display(s.display_grid, s.creature_grid, turn))
-
-
-
-	def print_board(self, display_grid, turn):
-		print("Turn =", str(turn) + ".")
-		print("  " + "".join("{0:d}".format(i) for i in range(len(display_grid[0]))))
-		for i, row in enumerate(display_grid, 0):
-			print("{0:d}".format(i),end= " ")
-			print("".join("{0}".format(col if col != None else ".") for col in row))
-		print()
-
-
-		for i in range(0, self.row):
-			for j in range(0, self.col):
-				if self.creature_grid[i][j].species == None:
-					self.display_grid[i][j] = '.'
-				else:
-					self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
-		print(self.display_grid)
-
-
-		top_line = "  "
-		for c in range(self.col):
-			top_line += str(c%10)
-
-		print (top_line) # change display grid name
-		for x in self.display_grid:
- 			line = ''
- 			col_line = 0
- 			for y in x:
- 				line += y
- 				col_line += 1
- 			print(col_line)
- 
-'''

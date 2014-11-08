@@ -80,9 +80,9 @@ food.add_instruction("left")
 food.add_instruction("go 0")
 
 hopper.add_instruction("hop")
-hopper.add_instruction("go", 0)
+hopper.add_instruction("go 0")
 
-rover.add_instruction("if_enemy", 9)
+rover.add_instruction("if_enemy 9")
 rover.add_instruction("if_empty 7")
 rover.add_instruction("if_random 5")
 rover.add_instruction("left")
@@ -110,7 +110,7 @@ f2 = Creature(food, "north", 7, 7)
 
 # create the board
 turn = 5
-s = Darwin(8, 8)
+s = Darwin(72, 72)
 
 s.add_creature(Species('food'), "east", 0, 0)
 s.add_creature(Species('hopper'), "north", 3, 3)
@@ -120,6 +120,7 @@ s.add_creature(Species('hopper'), "west", 4, 3)
 s.add_creature(Species('food'), "north", 7, 7)
 
 s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
+#left(creature_object, s.creature_grid)
 
 # ============ START GAME ================
 #s.turn(turn, [[hopper, h1]])
