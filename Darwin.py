@@ -16,7 +16,7 @@ class Species:
 		# each instruction is a function
 		[a] = [instructions]
 		self.instructions.append(a)
-				return self.instructions
+		return self.instructions
 
 
 class Creature:
@@ -40,11 +40,11 @@ class Creature:
 	
 	def turn(self, creature_grid):
 		c_species = self.species
-		self.program_counter = 0 
+	#	self.program_counter = 0 
 		stop_turn = False
 		while stop_turn == False:
 			for inst in c_species.instructions:
-				current = inst[self.program_counter].split(' ')
+				current = inst[0].split(' ')
 				if len(current) > 1:
 					if current[0] == "if_wall":
 						if_wall(self, creature_grid)
@@ -87,36 +87,31 @@ class Darwin:
 				temp.append(Creature(None, None, None, None))
 			self.creature_grid.append(temp)
 
-	def display(self, display_grid, turn):
+	#def display(self, display_grid, turn):
+	def print_board(self, display_grid, creature_grid, turn):
 		print("Turn =", str(turn) + ".")
 		print("  " + "".join("{0:d}".format(i%10) for i in range(len(display_grid[0]))))
 		for i, row in enumerate(display_grid, 0):
 			print("{0:d}".format(i%10),end= " ")
-			print("".join("{0}".format(col if col != None else ".") for col in row))
+			print("".join("{0}".format(col if col != '1' else ".") for col in row))
 		print()
 
-	def print_board(self, display_grid, creature_grid, turn):
-		display_grid = Darwin.display(self, display_grid, turn)
-		if turn == 0:
-			for i in range(0, self.row):
-				for j in range(0, self.col):
-					if self.creature_grid[i][j].species == None:
-						self.display_grid[i][j] = '.'
-					else:
-						self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
-					#print(self.display_grid[i][j])			
-		else:		
-			for i in range(0, self.row):
-				for j in range(0, self.col):
-					if self.creature_grid[i][j].species == None:
-						self.display_grid[i][j] = '.'
-					else:
-						self.display_grid[i][j] = self.creature_grid[i][j].species.c_id
-					#print(self.display_grid[i][j])
+
+	#	self.display_grid = Darwin.display(self, display_grid, turn)		
+	
+		for i in range(0, self.row):
+			for j in range(0, self.col):
+				#print("type", type(creature_grid[i][j]))
+				if creature_grid[i][j].species == None:
+					display_grid[i][j] = '.'
+				else:
+					#print("type", type(creature_grid[i][j]))
+					display_grid[i][j] = creature_grid[i][j].species.c_id
+
 		return self.display_grid
 
 	def master_turn(self, turn, list_creat):
-		self.print_board(self.display_grid, self.creature_grid, 0)
+		#self.print_board(self.display_grid, self.creature_grid, 0)
 		for x in range(0, turn):
 			for creat in list_creat:
 				if creat.turn(self.creature_grid) == True:
@@ -125,11 +120,11 @@ class Darwin:
 
 
 
-	def add_creature(self, creature): # may delete direction and x_cor, y_cor
-	#	self.creature_grid[x_cor][y_cor] = Creature(species, direction, creature.x_cor, creature.y_cor)
+	def add_creature(self, creature): 
 		x_cor = creature.x_cor
 		y_cor = creature.y_cor
-		self.creature_grid[x_cor][y_cor]
+		self.creature_grid[x_cor][y_cor] = creature
+	#	print("type", type(creature.species))
 
 def hop(creature_object, creature_grid):
 	

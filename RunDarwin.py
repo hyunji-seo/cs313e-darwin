@@ -110,14 +110,14 @@ f2 = Creature(food, "north", 7, 7)
 
 # create the board
 turn = 5
-s = Darwin(72, 72)
+s = Darwin(8, 8)
 
-s.add_creature(Species('food'), "east", 0, 0)
-s.add_creature(Species('hopper'), "north", 3, 3)
-s.add_creature(Species('hopper'), "east", 3, 4)
-s.add_creature(Species('hopper'), "south", 4, 4)
-s.add_creature(Species('hopper'), "west", 4, 3)
-s.add_creature(Species('food'), "north", 7, 7)
+s.add_creature(f1)
+s.add_creature(h1)
+s.add_creature(h2)
+s.add_creature(h3)
+s.add_creature(h4)
+s.add_creature(f2)
 
 s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
 #left(creature_object, s.creature_grid)
