@@ -109,31 +109,18 @@ h4 = Creature(hopper, "west", 4, 3)
 f2 = Creature(food, "north", 7, 7)
 
 # create the board
-<<<<<<< HEAD
-turn = 4
-s = Darwin(10, 10)
-
-=======
 turn = 5
 s = Darwin(8, 8)
 
 s.add_creature(f1)
->>>>>>> 7a2350517adbd65715a715f03233e99b7f6140dd
 s.add_creature(h1)
 s.add_creature(h2)
 s.add_creature(h3)
 s.add_creature(h4)
-
-<<<<<<< HEAD
-s.master_turn(turn, [h1, h2, h3, h4])
-#left(creature_object, s.creature_grid)
-=======
-s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
-#left(creature_object, s.creature_grid)
+s.add_creature(f2)
 
 # ============ START GAME ================
->>>>>>> 7a2350517adbd65715a715f03233e99b7f6140dd
-#s.turn(turn, [[hopper, h1]])
+s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
 
 # ----------
 # darwin 7x9
