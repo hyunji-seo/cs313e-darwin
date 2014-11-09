@@ -113,7 +113,10 @@ class Darwin:
 
 	def master_turn(self, turn, list_creat):
 		for x in range(0, turn):
-			self.print_board(self.display_grid, self.creature_grid, x)
+			if x < 10:
+				self.print_board(self.display_grid, self.creature_grid, x)
+			if x == 100 or x == 200 or x == 300 or x == 400 or x == 500 or x == 600 or x == 700 or x == 800 or x == 900 or x == 1000:
+				self.print_board(self.display_grid, self.creature_grid, x)
 			for creat in list_creat:
 				if creat.turn(self.creature_grid) == True:
 					self.creature_grid
