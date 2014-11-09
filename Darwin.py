@@ -1,10 +1,10 @@
 from random import randint, sample, seed
 
-## IT'S DARWIN
 class Species:
 	def __init__(self, name):
 		self.instructions = []
 		self.c_id = name
+		assert self.instructions == []
 
 	def get_instruction(self, instructions, index):
 		return instructions[index]
@@ -13,7 +13,6 @@ class Species:
 		[a] = [instructions]
 		self.instructions.append(a)
 		return self.instructions
-
 
 class Creature:
 	def __init__(self, species, direction, x_cor, y_cor): 
@@ -26,18 +25,14 @@ class Creature:
 
 	def turn(self, creature_grid):
 		c_species = self.species
-		print()
 		self.program_counter = 0 
 		stop_turn = False
 		while stop_turn == False:
 			for item in c_species.instructions:
-				#print("pc", self.program_counter)
 				self.program_counter += 1
 				current = item.split(' ')
-				#print(program_counter)
-				#print("current", current)
+				# control instructions
 				if len(current) > 1:
-
 					if current[0] == "if_wall":
 						self.program_counter = int(current[1])
 						c_species.get_instruction(c_species.instructions, self.program_counter)
@@ -51,9 +46,9 @@ class Creature:
 						self.program_counter = int(current[1])
 						c_species.get_instruction(c_species.instructions, self.program_counter)
 					if current[0] == "go":
-
 						self.program_counter = int(current[1])
 						c_species.get_instruction(c_species.instructions, self.program_counter)
+				# action instructions
 				if len(current) == 1:
 					if current[0] == "hop":
 						hop(self, creature_grid)
@@ -64,12 +59,11 @@ class Creature:
 					if current[0] == "right":
 						right(self, creature_grid)
 						c_species.get_instruction(c_species.instructions, self.program_counter)
-					
 					if current[0] == "infect":
-						
 						infect(self, creature_grid)
 						c_species.get_instruction(c_species.instructions, self.program_counter)
 					stop_turn = True
+		assert stop_turn == True
 		return stop_turn
 
 class Darwin:
@@ -91,7 +85,6 @@ class Darwin:
 			self.creature_grid.append(temp)
 
 	def print_board(self, display_grid, creature_grid, turn):
-		
 		for i in range(0, self.row):
 			for j in range(0, self.col):
 				if creature_grid[i][j].species == None:
@@ -118,16 +111,15 @@ class Darwin:
 		for x in range(0, turn):
 			self.print_board(self.display_grid, self.creature_grid, x)
 			for creat in list_creat:
-			
 				if creat.turn(self.creature_grid) == True:
 					self.creature_grid
-					self.display_grid
-			
+					self.display_grid	
 
 	def add_creature(self, creature): 
 		x_cor = creature.x_cor
 		y_cor = creature.y_cor
 		self.creature_grid[x_cor][y_cor] = creature
+
 
 # ======================== INSTRUCTIONS ============================
 def hop(creature_object, creature_grid):
@@ -196,15 +188,17 @@ def if_empty(creature_object, creature_grid):
 		return False
 
 def if_enemy(creature_object, creature_grid):
+	#print(creature_object.direction, if_wall(creature_object))
 	if creature_object.direction == "north" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species != creature_object.species and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species != None:
 		return True
-	if creature_object.direction == "south" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor+1][creature_object.y_cor].species != creature_object.species and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species != None:
+	if creature_object.direction == "south" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor+1][creature_object.y_cor].species != creature_object.species and creature_grid[creature_object.x_cor+1][creature_object.y_cor].species != None:
 		return True
-	if creature_object.direction == "east" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor][creature_object.y_cor+1].species != creature_object.species and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species != None:
+	if creature_object.direction == "east" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor][creature_object.y_cor+1].species != creature_object.species and creature_grid[creature_object.x_cor][creature_object.y_cor+1].species != None:
 		return True
-	if creature_object.direction == "west" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species != creature_object.species and creature_grid[creature_object.x_cor-1][creature_object.y_cor].species != None:
+	if creature_object.direction == "west" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species != creature_object.species and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species != None:
 		return True
 	else:
+
 		return False
 
 def infect(creature_object, creature_grid):

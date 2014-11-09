@@ -1,5 +1,3 @@
-## IT'S RUNDARWIN
-
 import random
 import sys
 from Darwin import *
@@ -15,6 +13,7 @@ from Darwin import *
 food = Species('f')
 food.add_instruction("left")
 food.add_instruction("go 0")
+
 # ------
 # hopper
 # ------
@@ -26,6 +25,7 @@ food.add_instruction("go 0")
 hopper = Species("h")
 hopper.add_instruction("hop")
 hopper.add_instruction("go 0")
+
 # -----
 # rover
 # -----
@@ -55,6 +55,7 @@ rover.add_instruction("hop")
 rover.add_instruction("go 0")
 rover.add_instruction("infect")
 rover.add_instruction("go 0")
+
 # ----
 # trap
 # ----
@@ -77,13 +78,23 @@ trap.add_instruction("go 0")
 # best
 # ----
 """
- 0: if_empty 3
- 1: left
- 2: go 0
+ 0: if_enemy 10
+ 1: if_wall 6
+ 2: if_random 10
  3: hop
  4: go 0
- 5: infect
- 6: go 0
+ 5: if_random 9
+ 6: left
+ 7: go 0
+ 8: right
+ 9: go 0
+ 10: infect
+ 11: go 0
+ 12: hop
+ 13: go 0
+ 14: if_enemy 12
+ 15: infect
+ 16: go 0
 """
 
 best = Species("b")
@@ -120,8 +131,6 @@ Food,   facing north, at (7, 7)
 Simulate 5 moves.
 Print every grid.
 """
-"""
-# create unique creatures of a species
 f1 = Creature(food, "east", 0, 0)
 h1 = Creature(hopper, "north", 3, 3)
 h2 = Creature(hopper, "east", 3, 4)
@@ -141,15 +150,14 @@ x.add_creature(h4)
 x.add_creature(f2)
 
 # ============ START GAME ================
-
 x.master_turn(turn, [f1, h1, h2, h3, h4, f2])
-"""
+
 # ----------
 # darwin 7x9
 # ----------
-"""
-print("*** Darwin 7x9 ***")
 
+print("*** Darwin 7x9 ***")
+"""
 7x9 Darwin
 Trap,   facing south, at (0, 0)
 Hopper, facing east,  at (3, 2)
@@ -157,30 +165,24 @@ Rover,  facing north, at (5, 4)
 Trap,   facing west,  at (6, 8)
 Simulate 5 moves.
 Print every grid.
-"""
 
 """
-# create unique creatures of a species
 t1 = Creature(trap, "south", 0, 0)
 h1 = Creature(hopper, "east", 3, 2)
-r1 = Creature(rover, "north", 5, 4)
+r1 = Creature(rover, "east", 5, 4)
 t2 = Creature(trap, "west", 6, 8)
 
-# create the board
 turn = 6
 y = Darwin(7, 9)
 
-# add creatures to the board
 y.add_creature(t1)
 y.add_creature(h1)
 y.add_creature(r1)
 y.add_creature(t2)
 
 # ============ START GAME ================
-
 y.master_turn(turn, [t1, h1, r1, t2])
 
-"""
 # ------------
 # darwin 72x72
 # without best
@@ -189,6 +191,7 @@ y.master_turn(turn, [t1, h1, r1, t2])
 print("*** Darwin 72x72 without Best ***")
 seed(0);
 """
+
 Randomly place the following creatures facing randomly.
 Call rand(), mod it with 5184 (72x72), and use that for the position
 in a row-major order grid.
@@ -203,8 +206,6 @@ Simulate 1000 moves.
 Print the first 10 grids          (i.e. 0, 1, 2...9).
 Print every 100th grid after that (i.e. 100, 200, 300...1000).
 """
-
-# create unique creatures of a species
 direction = ['north','east', 'south', 'west']
 f1 = Creature(food, random.choice(direction), random.randint(0,71), random.randint(0,71))
 f2 = Creature(food, random.choice(direction), random.randint(0,71), random.randint(0,71))
@@ -250,11 +251,9 @@ t8 = Creature(trap, random.choice(direction), random.randint(0,71), random.randi
 t9 = Creature(trap, random.choice(direction), random.randint(0,71), random.randint(0,71))
 t10 = Creature(trap, random.choice(direction), random.randint(0,71), random.randint(0,71))
 
-# create the board
 y = Darwin(72, 72)
 turn = 1001
 
-# add creatures to the board
 y.add_creature(f1)
 y.add_creature(f2)
 y.add_creature(f3)
@@ -376,7 +375,6 @@ t8 = Creature(trap, random.choice(direction), random.randint(0,71), random.randi
 t9 = Creature(trap, random.choice(direction), random.randint(0,71), random.randint(0,71))
 t10 = Creature(trap, random.choice(direction), random.randint(0,71), random.randint(0,71))
 
-# add creatures to the board
 z.add_creature(f1)
 z.add_creature(f2)
 z.add_creature(f3)
@@ -442,5 +440,6 @@ z.add_creature(best_7)
 z.add_creature(best_8)
 z.add_creature(best_9)
 z.add_creature(best_10)
+
 # ============ START GAME ================
 z.master_turn(turn, [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, best_1, best_2, best_3, best_4, best_5, best_6, best_7, best_8, best_9, best_10])
