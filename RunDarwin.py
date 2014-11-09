@@ -140,19 +140,6 @@ f2 = Creature(food, "north", 7, 7)
 
 # create the board
 turn = 5
-<<<<<<< HEAD
-x = Darwin(8, 8)
-
-x.add_creature(f1)
-x.add_creature(h1)
-x.add_creature(h2)
-x.add_creature(h3)
-x.add_creature(h4)
-x.add_creature(f2)
-
-# ============ START GAME ================
-x.master_turn(turn, [f1, h1, h2, h3, h4, f2])
-=======
 s = Darwin(8, 8)
 
 s.add_creature(f1)
@@ -164,7 +151,6 @@ s.add_creature(f2)
 
 # ============ START GAME ================
 s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 
 # ----------
 # darwin 7x9
