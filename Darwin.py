@@ -144,7 +144,7 @@ def hop(creature_object, creature_grid):
 		creature_grid[creature_object.x_cor][creature_object.y_cor] = Creature(None, None, None, None)
 		creature_object.y_cor-=1
 
-def left(creature_object):
+def left(creature_object, creature_grid):
 	if creature_object.direction == "north":
 		creature_object.direction = "west"
 	elif creature_object.direction == "west":
