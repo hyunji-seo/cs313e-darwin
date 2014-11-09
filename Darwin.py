@@ -9,21 +9,14 @@ class Species:
 	def get_instruction(self, instructions, index):
 		return instructions[index]
 
-<<<<<<< HEAD
-=======
 	def list_instructions(self):
 		return self.instructions
 
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 	def add_instruction(self, instructions):
 		[a] = [instructions]
 		self.instructions.append(a)
 		return self.instructions
 
-<<<<<<< HEAD
-=======
-
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 class Creature:
 	def __init__(self, species, direction, x_cor, y_cor): 
 		self.species = species
@@ -37,15 +30,9 @@ class Creature:
 		c_species = self.species
 		self.program_counter = 0 
 		stop_turn = False
-<<<<<<< HEAD
-		while stop_turn == False:
-			for item in c_species.instructions:
-=======
 
 		while stop_turn == False:
 			for item in c_species.instructions:
-
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 				self.program_counter += 1
 				current = item.split(' ')
 				# control instructions
@@ -118,17 +105,9 @@ class Darwin:
 		
 		for i in range(0, self.row):
 			for j in range(0, self.col):
-<<<<<<< HEAD
 				if creature_grid[i][j].species == None:
 					display_grid[i][j] = '.'
 				else:
-=======
-				#print("type", type(creature_grid[i][j]))
-				if creature_grid[i][j].species == None:
-					display_grid[i][j] = '.'
-				else:
-					#print("type", type(creature_grid[i][j]))
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 					display_grid[i][j] = creature_grid[i][j].species.c_id
 		return self.display_grid
 
@@ -138,13 +117,8 @@ class Darwin:
 			for creat in list_creat:
 				if creat.turn(self.creature_grid) == True:
 					self.creature_grid
-<<<<<<< HEAD
-					self.display_grid	
-=======
 					self.display_grid
 			
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
-
 	def add_creature(self, creature): 
 		x_cor = creature.x_cor
 		y_cor = creature.y_cor
@@ -170,9 +144,6 @@ def hop(creature_object, creature_grid):
 		creature_grid[creature_object.x_cor][creature_object.y_cor] = Creature(None, None, None, None)
 		creature_object.y_cor-=1
 
-<<<<<<< HEAD
-def left(creature_object, creature_grid):
-=======
 def left(creature_object):
 >>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 	if creature_object.direction == "north":
@@ -232,10 +203,6 @@ def if_enemy(creature_object, creature_grid):
 	if creature_object.direction == "west" and if_wall(creature_object) == False and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species != creature_object.species and creature_grid[creature_object.x_cor][creature_object.y_cor-1].species != None:
 		return True
 	else:
-<<<<<<< HEAD
-
-=======
->>>>>>> d7ad3b2cc3479c43f44bd913c93abcf048111555
 		return False
 
 def infect(creature_object, creature_grid):
