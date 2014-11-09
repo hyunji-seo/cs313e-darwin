@@ -21,6 +21,7 @@ class TestDarwin (TestCase) :
     # -------------
 
     # ============= Species ======================
+<<<<<<< HEAD
 
 
     # =============== get_instruction ====================   
@@ -118,6 +119,104 @@ class TestDarwin (TestCase) :
 
     def test_turn_1 (self):
         
+=======
+
+
+    # =============== get_instruction ====================   
+    def test_get_instruction_1 (self) :
+        s = Species('food')
+        instructions = [['left'], ['go']]
+        program_counter = 1
+        get_i = s.get_instruction(instructions, program_counter)
+        self.assertEqual(get_i, ['go'])
+
+    def test_get_instruction_2 (self) :
+        s = Species('hopper')
+        instructions = [['hop'], ['go']]
+        program_counter = 0
+        get_i = s.get_instruction(instructions, program_counter)
+        self.assertEqual(get_i, ['hop'])
+
+    def test_get_instruction_3 (self) :
+        s = Species('trap')
+        instructions = [['if_enemy'],['left'],['go'],['infect'],['go']]
+        program_counter = 3
+        get_i = s.get_instruction(instructions, program_counter)
+        self.assertEqual(get_i, ['infect'])
+
+    def test_list_instruction_1 (self) :
+        s = Species('food')
+        list_i = s.list_instructions()
+        self.assertEqual(list_i, [])
+
+    def test_list_instruction_2 (self) :
+        s = Species('trap')
+        list_i = s.list_instructions()
+        self.assertEqual(list_i, [])
+
+    def test_list_instruction_3 (self) :
+        s = Species('hopper')
+        list_i = s.list_instructions()
+        self.assertEqual(list_i, [])
+
+    # ============= add_instruction ==============
+##########################################################
+######## need to clarify what we wanna do on Darwin ######
+##########################################################
+    
+    def test_add_instruction_1 (self) :
+        s = Species('food')
+        instructions = 'left'
+        add_i = s.add_instruction(instructions)
+        self.assertEqual(add_i, ["left"])  
+        
+    def test_add_instruction_2 (self) :
+        s = Species('hopper')
+        instructions = 'hop'
+        add_i = s.add_instruction(instructions)
+        self.assertEqual(add_i, ["hop"])   
+
+    def test_add_instruction_3 (self) :
+        s = Species('trap')
+        instructions = 'if_enemy 3'
+        add_i = s.add_instruction(instructions)
+        self.assertEqual(add_i, ["if_enemy 3"])
+    """
+    # ============== get_move ==================
+    def test_get_move_1 (self) :
+        creature = Creature(food, "east", 0, 0)
+        species = food
+        instructions = [['left'],['go 0']]
+        direction = "east"
+        program_counter = 0
+        m = creature.get_move(species, instructions, direction, program_counter)
+        self.assertEqual(m[0], ['left'])
+
+    def test_get_move_2 (self) :
+        creature = Creature(hopper, "north", 3, 3)
+        species = hopper
+        instructions = [['hop'],['go 0']]
+        direction = "north"
+        program_counter = 0
+        m = creature.get_move(species, instructions, direction, program_counter)
+        self.assertEqual(m[0], ['hop'])
+
+    def test_get_move_3 (self) :
+        creature = Creature(trap, "north", 4, 5)
+        species = trap
+        instructions = [['if_enemy'],['left'],['go'],['infect'],['go']]
+        direction = "north"
+        program_counter = 0
+        m = creature.get_move(species, instructions, direction, program_counter)
+        self.assertEqual(m[0], ['if_enemy'])
+
+    """
+
+    # ============== turn ==================
+
+    #def test_turn_1 (self):
+    #    current - inst[self.program_counter].split('')
+>>>>>>> 7a2350517adbd65715a715f03233e99b7f6140dd
 
     #def test_turn_2 (self):
 
