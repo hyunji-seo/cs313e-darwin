@@ -9,9 +9,6 @@ class Species:
 	def get_instruction(self, instructions, index):
 		return instructions[index]
 
-	def list_instructions(self):
-		return self.instructions
-
 	def add_instruction(self, instructions):
 		[a] = [instructions]
 		self.instructions.append(a)
@@ -29,6 +26,7 @@ class Creature:
 
 	def turn(self, creature_grid):
 		c_species = self.species
+		print()
 		self.program_counter = 0 
 		stop_turn = False
 		while stop_turn == False:
@@ -120,6 +118,7 @@ class Darwin:
 		for x in range(0, turn):
 			self.print_board(self.display_grid, self.creature_grid, x)
 			for creat in list_creat:
+			
 				if creat.turn(self.creature_grid) == True:
 					self.creature_grid
 					self.display_grid
@@ -172,7 +171,6 @@ def right(creature_object, creature_grid):
 def if_wall(creature_object):
 	r
 	c
-	# True = there's a wall ahead
 	if creature_object.direction == "south" and creature_object.x_cor+1 ==  r:
 		return True
 	if creature_object.direction == "north" and creature_object.x_cor-1 < 0:
