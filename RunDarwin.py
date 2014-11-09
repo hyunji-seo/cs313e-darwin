@@ -99,7 +99,7 @@ trap.add_instruction("left")
 trap.add_instruction("go 0")
 trap.add_instruction("infect")
 trap.add_instruction("go 0")
-
+"""
 # create unique creatures of a species
 f1 = Creature(food, "east", 0, 0)
 h1 = Creature(hopper, "north", 3, 3)
@@ -109,38 +109,26 @@ h4 = Creature(hopper, "west", 4, 3)
 f2 = Creature(food, "north", 7, 7)
 
 # create the board
-<<<<<<< HEAD
-turn = 4
-s = Darwin(10, 10)
-
-=======
 turn = 5
-s = Darwin(8, 8)
+x = Darwin(8, 8)
 
-s.add_creature(f1)
->>>>>>> 7a2350517adbd65715a715f03233e99b7f6140dd
-s.add_creature(h1)
-s.add_creature(h2)
-s.add_creature(h3)
-s.add_creature(h4)
-
-<<<<<<< HEAD
-s.master_turn(turn, [h1, h2, h3, h4])
-#left(creature_object, s.creature_grid)
-=======
-s.master_turn(turn, [f1, h1, h2, h3, h4, f2])
-#left(creature_object, s.creature_grid)
+x.add_creature(f1)
+x.add_creature(h1)
+x.add_creature(h2)
+x.add_creature(h3)
+x.add_creature(h4)
+x.add_creature(f2)
 
 # ============ START GAME ================
->>>>>>> 7a2350517adbd65715a715f03233e99b7f6140dd
-#s.turn(turn, [[hopper, h1]])
 
+x.master_turn(turn, [f1, h1, h2, h3, h4, f2])
+"""
 # ----------
 # darwin 7x9
 # ----------
-
-print("*** Darwin 7x9 ***")
 """
+print("*** Darwin 7x9 ***")
+
 7x9 Darwin
 Trap,   facing south, at (0, 0)
 Hopper, facing east,  at (3, 2)
@@ -148,8 +136,9 @@ Rover,  facing north, at (5, 4)
 Trap,   facing west,  at (6, 8)
 Simulate 5 moves.
 Print every grid.
+"""
 
-
+"""
 # create unique creatures of a species
 t1 = Creature(trap, "south", 0, 0)
 h1 = Creature(hopper, "east", 3, 2)
@@ -157,19 +146,20 @@ r1 = Creature(rover, "north", 5, 4)
 t2 = Creature(trap, "west", 6, 8)
 
 # create the board
-turn = 5
-s = Darwin(7, 9)
+turn = 6
+y = Darwin(7, 9)
 
 # add creatures to the board
-s.add_creature(t1, trap)
-s.add_creature(h1, hopper)
-s.add_creature(r1, rover)
-s.add_creature(t2, trap)
+y.add_creature(t1)
+y.add_creature(h1)
+y.add_creature(r1)
+y.add_creature(t2)
 
 # ============ START GAME ================
-s.turn(turn, [[trap, t1], [hopper, h1], [rover, r1], [trap, t2]])
-"""
 
+y.master_turn(turn, [t1, h1, r1, t2])
+
+"""
 # ------------
 # darwin 72x72
 # without best
@@ -192,7 +182,64 @@ Simulate 1000 moves.
 Print the first 10 grids          (i.e. 0, 1, 2...9).
 Print every 100th grid after that (i.e. 100, 200, 300...1000).
 """
+# create unique creatures of a species
+f1 = Creature(trap, "south", 0, 0)
+f2 = Creature(trap, "south", 0, 0)
+f3 = Creature(trap, "south", 0, 0)
+f4 = Creature(trap, "south", 0, 0)
+f5 = Creature(trap, "south", 0, 0)
+f6 = Creature(trap, "south", 0, 0)
+f7 = Creature(trap, "south", 0, 0)
+f8 = Creature(trap, "south", 0, 0)
+f9 = Creature(trap, "south", 0, 0)
+f10 = Creature(trap, "south", 0, 0)
 
+h1 = Creature(hopper, "east", 3, 2)
+h2 = Creature(hopper, "east", 3, 2)
+h3 = Creature(hopper, "east", 3, 2)
+h4 = Creature(hopper, "east", 3, 2)
+h5 = Creature(hopper, "east", 3, 2)
+h6 = Creature(hopper, "east", 3, 2)
+h7 = Creature(hopper, "east", 3, 2)
+h8 = Creature(hopper, "east", 3, 2)
+h9 = Creature(hopper, "east", 3, 2)
+h10 = Creature(hopper, "east", 3, 2)
+
+r1 = Creature(rover, "north", 5, 4)
+r2 = Creature(rover, "north", 5, 4)
+r3 = Creature(rover, "north", 5, 4)
+r4 = Creature(rover, "north", 5, 4)
+r5 = Creature(rover, "north", 5, 4)
+r6 = Creature(rover, "north", 5, 4)
+r7 = Creature(rover, "north", 5, 4)
+r8 = Creature(rover, "north", 5, 4)
+r9 = Creature(rover, "north", 5, 4)
+r10 = Creature(rover, "north", 5, 4)
+
+t1 = Creature(rover, "north", 5, 4)
+t2 = Creature(trap, "west", 6, 8)
+t3 = Creature(rover, "north", 5, 4)
+t4 = Creature(rover, "north", 5, 4)
+t5 = Creature(rover, "north", 5, 4)
+t6 = Creature(rover, "north", 5, 4)
+t7 = Creature(rover, "north", 5, 4)
+t8 = Creature(rover, "north", 5, 4)
+t9 = Creature(rover, "north", 5, 4)
+t10 = Creature(rover, "north", 5, 4)
+
+# create the board
+turn = 11
+y = Darwin(72, 72)
+
+# add creatures to the board
+y.add_creature(t1)
+y.add_creature(h1)
+y.add_creature(r1)
+y.add_creature(t2)
+
+# ============ START GAME ================
+
+y.master_turn(turn, [t1, h1, r1, t2])
 # ------------
 # darwin 72x72
 # with best
